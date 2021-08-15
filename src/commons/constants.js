@@ -1,5 +1,5 @@
 // AAP message type codes.
-const AAPMessageType = {
+const AAPMessageTypes = {
   ACK: 0x0,
   NACK: 0x1,
   REGISTER: 0x2,
@@ -11,16 +11,6 @@ const AAPMessageType = {
   PING: 0x8,
 };
 
-// const AAPMessage = ({
-//   messageType = AAPMessageType.ACK,
-//   eid = null,
-//   payload = null,
-//   bundleID = null,
-// }) => {
-//   return 0;
-// };
-
 module.exports = {
-  AAPMessageType,
-  // AAPMessage,
+  AAPMessageTypes,
 };
