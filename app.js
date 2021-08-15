@@ -1,5 +1,6 @@
 // Library Imports
 const express = require('express');
+// const net = require('net');
 
 // Local Imports
 const aapController = require('./src/controllers/aap_controller');
@@ -8,6 +9,12 @@ const aapController = require('./src/controllers/aap_controller');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Client creation
+// const client = net.createConnection({
+//   host: 'localhost',
+//   port: 4242,
+// });
 
 // Send a new bundle via uD3TN's AAP interface.
 app.post('/', async (req, res) => {

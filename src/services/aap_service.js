@@ -1,9 +1,18 @@
 const commons = require("../commons/functions");
+const sockets = require("../socket/client");
 
 const aapSend = async ({ eid, message }) => {
   const str = `EID is: ${eid}, and Message is: ${message}`;
   console.log(str);
-  return Promise.resolve(str);
+
+  sockets.createConnection();
+  sockets.sendMessage({
+    dest_eid: 'dtn://b.dtn/bundlesink',
+    message: 'Hello, World!',
+  });
+
+  console.log("message sent")
+  return Promise.resolve(0);
 };
 
 const aapReceive = async ({ waitTime }) => {
