@@ -1,7 +1,7 @@
 const aapService = require('../services/aap_service');
 
 const aapSend = async ({ dest_eid, message, waitTime }) => {
-  const err = await aapService.aapSend({ dest_eid, message, waitTime });
+  const err = await aapService.aapSend({ dest_eid, message });
   if (err) {
     return err;
   }

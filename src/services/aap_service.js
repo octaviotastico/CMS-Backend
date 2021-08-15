@@ -1,11 +1,8 @@
 const commons = require("../commons/functions");
 const sockets = require("../socket/client");
 
-const aapSend = async ({ dest_eid, message, waitTime }) => {
-  const err = await sockets.sendMessage({ dest_eid, message });
-  if (err) {
-    return err;
-  }
+const aapSend = async ({ dest_eid, message }) => {
+  return sockets.sendMessage({ dest_eid, message });
 };
 
 const aapReceive = async ({ waitTime }) => {

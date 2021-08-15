@@ -10,7 +10,7 @@ const createConnection = (host='localhost', port=4242) => {
 };
 
 // Sends a bundle via uD3TN's AAP interface
-const sendMessage = async ({ dest_eid, message }) => {
+const sendMessage = ({ dest_eid, message }) => {
   const dest_err = commons.checkUndefined(dest_eid, 'dest_eid');
   const msg_err = commons.checkUndefined(message, 'message');
   if (dest_err || msg_err) {
@@ -30,16 +30,9 @@ const sendMessage = async ({ dest_eid, message }) => {
     payload: Buffer.from(message, 'utf8'),
     eid: dest_eid,
   }));
-
-  // Step 3: Wait for response
-  client.on('data', (data) => {
-    // I should parse the response here.
-    console.log("response is", data);
-    client.end();
-  });
 };
 
-const receiveMessage = async (waitTime) => {
+const receiveMessage = (waitTime) => {
   const client = createConnection();
   client.setTimeout(waitTime);
 
@@ -48,14 +41,10 @@ const receiveMessage = async (waitTime) => {
     client.end();
   });
 
-  let response = null;
-  client.on('data', (data) => {
+  return new Promise (resolve => {client.on('data', (data) => {
     console.log(`Received message from server: ${data}`);
-    response = data;
-    console.log("ERROR HERE 2", response);
-  });
-  console.log("ERROR HERE 1", response);
-  return response;
+    resolve(data);
+  })});
 }
 
 
