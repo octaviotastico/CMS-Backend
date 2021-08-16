@@ -1,6 +1,7 @@
 // Library Imports
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 // Local Imports
 const aapController = require('./src/controllers/aap_controller');
@@ -14,6 +15,7 @@ const learningController = require('./src/controllers/learning');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors())
 
 // Database Connection
 // mongoose.Promise = global.Promise;
@@ -31,14 +33,28 @@ app.get('/', async (req, res) => {
   await aapController.aapReceive(req, res);
 });
 
-// Get all the learning articles
-app.get('/learning', async (req, res) => {
+// Get all the learning articles with projection
+app.get('/learning/articles', async (req, res) => {
   await learningController.getAllArticles(req, res);
 });
 
 // Post a new learning article
-app.post('/learning', async (req, res) => {
+app.get('/learning/article/:id', async (req, res) => {
+  await learningController.getArticleByID(req, res);
+});
+
+// Post a new learning article
+app.post('/learning/articles', async (req, res) => {
   await learningController.postArticle(req, res);
+});
+
+app.patch('/learning/article/:id', async (req, res) => {
+  await learningController.editArticle(req, res);
+});
+
+// Post a new learning article
+app.delete('/learning/article/:id', async (req, res) => {
+  await learningController.deleteArticle(req, res);
 });
 
 

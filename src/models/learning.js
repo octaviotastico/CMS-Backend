@@ -4,14 +4,14 @@ const Schema = mongoose.Schema
 
 // Learning model schema
 const LearningSchema = new Schema({
-  category: { type: String },
-  title: { type: String },
+  category: { type: String, required: true },
+  title: { type: String, required: true },
   subtitle: { type: String },
-  author: { type: String },
-  description: { type: String },
+  author: { type: String, required: true },
+  description: { type: String, required: true },
   preview: { type: String },
-  content: { type: String },
-  tags: [{ type: String }],
+  content: { type: String, required: true },
+  tags: [{ type: String, required: true }],
 })
 
 // Extra options for mongoose
@@ -28,7 +28,5 @@ LearningSchema.plugin(timestamps, {
   createdAt: 'createdAt',
   updatedAt: 'modifiedAt'
 })
-
-LearningSchema.index({ city: 1, state_code: 1 }, { unique: true })
 
 module.exports = mongoose.model('learning', LearningSchema)
