@@ -2,7 +2,7 @@
 const express = require('express');
 
 // Local Imports
-const aapController = require('../controllers/aap_controller');
+const aapController = require('../controllers/aap');
 const routeController = require('../commons/routeController');
 
 // Routing

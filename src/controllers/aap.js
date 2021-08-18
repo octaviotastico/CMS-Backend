@@ -1,4 +1,4 @@
-const appDelegate = require('../delegates/aap_delegate');
+const appDelegate = require('../delegates/aap');
 
 const aapSend = async (req, res) => {
   const {
