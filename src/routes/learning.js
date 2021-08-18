@@ -8,16 +8,29 @@ const routeController = require('../commons/routeController');
 // Routing
 const router = express.Router();
 
-// Get all the learning documents
-router.get('/', (req, res) => {
+
+// Get all the learning articles with projection
+router.get('/articles', (req, res) => {
   routeController.handleRequest(req, res, learningController.getAllArticles);
 });
 
-// Get all the learning documents
-router.get('/', (req, res) => {
+// Post a new learning article
+router.get('/article/:id', (req, res) => {
+  routeController.handleRequest(req, res, learningController.getArticleByID);
+});
+
+// Post a new learning article
+router.post('/articles', (req, res) => {
   routeController.handleRequest(req, res, learningController.postArticle);
 });
 
-module.exports = {
-  router
-};
+router.patch('/article/:id', (req, res) => {
+  routeController.handleRequest(req, res, learningController.editArticle);
+});
+
+// Post a new learning article
+router.delete('/article/:id', (req, res) => {
+  routeController.handleRequest(req, res, learningController.deleteArticle);
+});
+
+module.exports = router;
