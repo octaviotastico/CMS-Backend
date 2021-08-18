@@ -62,6 +62,7 @@ I'm still trying to figure out how to make a videocall xD but they'll be coming 
 
 ## TODO
 
+- Client socket is created (for connecting with the ud3tn instances/nodes), but Server socket is needed, for hosts to connect witht he backend (so the backend streams the data to the ud3tn nodes).
 - Create more endpoints (user, profile, meetings, etc).
 - Organize articles better.
 - Ping to eids to check how much time it takes to reach them.
