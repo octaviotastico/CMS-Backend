@@ -68,7 +68,8 @@ const postEvent = async (req, res) => {
  * Edits an event.
  */
 const editEvent = async (req, res) => {
-  const { id, title, description, startDate, endDate, expositor, preview, tags } = req.body;
+  const { id } = req.params;
+  const { title, description, startDate, endDate, expositor, preview, tags } = req.body;
   const response = await calendarDelegate.editEvent({ id, title, description, startDate, endDate, expositor, preview, tags });
   res.status(201).json(response);
   return response;

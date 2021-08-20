@@ -15,8 +15,8 @@ const getAllEvents = async ({page, amount}) => {
 const getAllCurrentEvents = async () => {
   // Returns all current events.
   return await CalendarModel.find({
-    start: {$lte: new Date()},
-    end: {$gte: new Date()},
+    startDate: {$lte: new Date()},
+    endDate: {$gte: new Date()},
   });
 };
 
