@@ -12,19 +12,21 @@ const getAllEvents = async ({page, amount}) => {
   return await CalendarModel.find();
 };
 
+const getAllCurrentEvents = async () => {
+  // Returns all current events.
+  return await CalendarModel.find({
+    start: {$lte: new Date()},
+    end: {$gte: new Date()},
+  });
+};
+
 const getAllUpcomingEvents = async ({ page, amount }) => {
   if (page && amount) {
     // Returns events with pagination.
     return await CalendarModel.paginate({
-      $or: [{
-        startDate: {
-          $gt: new Date(),
-        },
-      }, {
-        endDate: {
-          $gt: new Date(),
-        },
-      }],
+      startDate: {
+        $gt: new Date(),
+      },
     }, {
       page: page,
       limit: amount,
@@ -32,15 +34,9 @@ const getAllUpcomingEvents = async ({ page, amount }) => {
   }
   // Returns all upcoming events.
   return await CalendarModel.find({
-    $or: [{
-      startDate: {
-        $gt: new Date(),
-      },
-    }, {
-      endDate: {
-        $gt: new Date(),
-      },
-    }],
+    startDate: {
+      $gt: new Date(),
+    },
   });
 };
 
@@ -56,7 +52,7 @@ const getAllPastEvents = async ({ page, amount }) => {
       limit: amount,
     });
   }
-  // Returns all upcoming events.
+  // Returns all past events.
   return await CalendarModel.find({
     endDate: {
       $lt: new Date(),
@@ -86,6 +82,7 @@ const deleteEvent = async ({ id }) => {
 
 module.exports = {
   getAllEvents,
+  getAllCurrentEvents,
   getAllUpcomingEvents,
   getAllPastEvents,
   getEventByID,

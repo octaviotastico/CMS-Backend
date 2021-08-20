@@ -12,6 +12,15 @@ const getAllEvents = async (req, res) => {
 };
 
 /*
+ * Returns all the current events.
+ */
+const getAllCurrentEvents = async (req, res) => {
+  const response = await calendarDelegate.getAllCurrentEvents();
+  res.status(201).json(response);
+  return response;
+};
+
+/*
  * Returns all the upcoming events.
  */
 const getAllUpcomingEvents = async (req, res) => {
@@ -81,6 +90,7 @@ const deleteEvent = async (req, res) => {
 
 module.exports = {
   getAllEvents,
+  getAllCurrentEvents,
   getAllUpcomingEvents,
   getAllPastEvents,
   getEventByID,

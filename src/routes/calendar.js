@@ -14,6 +14,11 @@ router.get('/events', (req, res) => {
   routeController.handleRequest(req, res, calendarController.getAllEvents);
 });
 
+// Get current events.
+router.get('/events/current', (req, res) => {
+  routeController.handleRequest(req, res, calendarController.getAllCurrentEvents);
+});
+
 // Get all the upcoming events.
 router.get('/events/upcoming', (req, res) => {
   routeController.handleRequest(req, res, calendarController.getAllUpcomingEvents);

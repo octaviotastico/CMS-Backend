@@ -6,6 +6,10 @@ const getAllEvents = async ({ page, amount }) => {
   return await calendarService.getAllEvents({ page, amount });
 };
 
+const getAllCurrentEvents = async () => {
+  return await calendarService.getAllCurrentEvents();
+};
+
 const getAllUpcomingEvents = async ({ page, amount }) => {
   return await calendarService.getAllUpcomingEvents({ page, amount });
 };
@@ -95,6 +99,7 @@ const deleteEvent = async ({ id }) => {
 
 module.exports = {
   getAllEvents,
+  getAllCurrentEvents,
   getAllUpcomingEvents,
   getAllPastEvents,
   getEventByID,
