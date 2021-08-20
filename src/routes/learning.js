@@ -2,8 +2,8 @@
 const express = require('express');
 
 // Local Imports
-const learningController = require('../controllers/learning');
 const routeController = require('../commons/routeController');
+const learningController = require('../controllers/learning');
 
 // Routing
 const router = express.Router();
@@ -14,7 +14,22 @@ router.get('/articles', (req, res) => {
   routeController.handleRequest(req, res, learningController.getAllArticles);
 });
 
-// Post a new learning article
+// Get all the categories of articles
+router.get('/articles/categories', (req, res) => {
+  routeController.handleRequest(req, res, learningController.getAllCategories);
+});
+
+// Post a new category of articles
+router.post('/articles/categories', (req, res) => {
+  routeController.handleRequest(req, res, learningController.postCategory);
+});
+
+// Get all the articles inside a category
+router.get('/articles/category/:category', (req, res) => {
+  routeController.handleRequest(req, res, learningController.getAllArticlesOfCategory);
+});
+
+// Get all the information about an article without projection
 router.get('/article/:id', (req, res) => {
   routeController.handleRequest(req, res, learningController.getArticleByID);
 });
@@ -24,11 +39,12 @@ router.post('/articles', (req, res) => {
   routeController.handleRequest(req, res, learningController.postArticle);
 });
 
+// Edit/Update an existing article
 router.patch('/article/:id', (req, res) => {
   routeController.handleRequest(req, res, learningController.editArticle);
 });
 
-// Post a new learning article
+// Delete an existing article
 router.delete('/article/:id', (req, res) => {
   routeController.handleRequest(req, res, learningController.deleteArticle);
 });

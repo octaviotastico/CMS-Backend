@@ -5,14 +5,17 @@ const commons = require('./constants');
 
 const sleep = (seconds) => {
   return new Promise(resolve => setTimeout(resolve, seconds));
-}
+};
 
 const checkUndefined = (obj, name) => {
   if (typeof obj === 'undefined') {
-    console.error(`${name} is undefined`);
-    return Error(`${name} is undefined`);
+    throw new Error(`${name} must not be left undefined`);
   }
-}
+};
+
+const isValidDate = (d) => {
+  return d instanceof Date && !isNaN(d);
+};
 
 const serializeMessage = ({ messageType, eid=null, payload=null, bundle_id=null }) => {
   const msg = [struct.pack("B", 0x10 | (messageType & 0xF))];
@@ -46,7 +49,7 @@ const serializeMessage = ({ messageType, eid=null, payload=null, bundle_id=null 
   }
 
   return msg.join('');
-}
+};
 
 const deserializeMessage = (buffer) => {
   const {
@@ -69,7 +72,7 @@ const deserializeMessage = (buffer) => {
   if (buffer.length < 1) {
     console.error("Buffer is too short.");
     return errorDeserializing;
-  };
+  }
 
   const version = (buffer[0] >> 4) & 0xF;
   if (version !== 0x1) {
@@ -134,11 +137,12 @@ const deserializeMessage = (buffer) => {
     payload,
     bundle_id,
   };
-}
+};
 
 module.exports = {
   sleep,
   checkUndefined,
+  isValidDate,
   serializeMessage,
   deserializeMessage,
 };

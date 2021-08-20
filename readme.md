@@ -62,9 +62,15 @@ I'm still trying to figure out how to make a videocall xD but they'll be coming 
 
 ## TODO
 
+- Real documentation xD
+- Try catchs in controller.
+- Delegates should check every body variable, and throw errors (catched by controller).
+- Services must be small and never fail (because of the delegates work).
+- Comments in all controllers functions.
+- More return codes for every function.
+
 - Client socket is created (for connecting with the ud3tn instances/nodes), but Server socket is needed, for hosts to connect witht he backend (so the backend streams the data to the ud3tn nodes).
 - Create more endpoints (user, profile, meetings, etc).
 - Organize articles better.
 - Ping to eids to check how much time it takes to reach them.
-- Create a map of eids???
 - Stream video over the network :)

@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
-// Learning model schema
-const LearningSchema = new Schema({
-  category: { type: String, required: true },
+// Calendar model schema
+const CalendarSchema = new Schema({
   title: { type: String, required: true },
-  subtitle: { type: String },
-  author: { type: String, required: true },
   description: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  expositor: { type: String, required: true },
   preview: { type: String },
-  content: { type: String, required: true },
-  tags: [{ type: String, required: true }],
+  tags: [{ type: String }],
 });
 
 // Extra options for mongoose
-LearningSchema.options.toJSON = {
+CalendarSchema.options.toJSON = {
   transform: function (doc, ret) {
     ret.id = ret._id // Change _id key to id
     delete ret._id   // Don't include the _id in JSON
@@ -24,9 +24,11 @@ LearningSchema.options.toJSON = {
   }
 };
 
-LearningSchema.plugin(timestamps, {
+CalendarSchema.plugin(mongoosePaginate);
+
+CalendarSchema.plugin(timestamps, {
   createdAt: 'createdAt',
   updatedAt: 'modifiedAt'
 });
 
-module.exports = mongoose.model('learning', LearningSchema);
+module.exports = mongoose.model('calendar', CalendarSchema);

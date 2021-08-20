@@ -1,6 +1,4 @@
 const LearningModel = require('../models/learning')
-// const aapService = require('./aap');
-// TODO: Figure out how to store things on the DTN network without sending it to anyone in particular.
 
 const getAllArticles = async () => {
   return await LearningModel.find({}, "title subtitle author description category preview");
@@ -21,10 +19,12 @@ const postArticle = async (article) => {
 }
 
 const editArticle = async ({ id, article }) => {
+  // TODO: Sync with other backends
   return await LearningModel.findByIdAndUpdate({ _id: id }, article, { new: false });
 }
 
 const deleteArticle = async ({ id }) => {
+  // TODO: Sync with other backends
   return await LearningModel.findOneAndRemove(id);
 }
 
