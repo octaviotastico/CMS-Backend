@@ -19,11 +19,6 @@ router.get('/articles/categories', (req, res) => {
   routeController.handleRequest(req, res, learningController.getAllCategories);
 });
 
-// Post a new category of articles
-router.post('/articles/categories', (req, res) => {
-  routeController.handleRequest(req, res, learningController.postCategory);
-});
-
 // Get all the articles inside a category
 router.get('/articles/category/:category', (req, res) => {
   routeController.handleRequest(req, res, learningController.getAllArticlesOfCategory);

@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 // Calendar model schema
-const CalendarSchema = new Schema({
+const EventSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   startDate: { type: Date, required: true },
@@ -15,7 +15,7 @@ const CalendarSchema = new Schema({
 });
 
 // Extra options for mongoose
-CalendarSchema.options.toJSON = {
+EventSchema.options.toJSON = {
   transform: function (doc, ret) {
     ret.id = ret._id // Change _id key to id
     delete ret._id   // Don't include the _id in JSON
@@ -24,11 +24,13 @@ CalendarSchema.options.toJSON = {
   }
 };
 
-CalendarSchema.plugin(mongoosePaginate);
+// Extra properties for model
+EventSchema.plugin(mongoosePaginate);
 
-CalendarSchema.plugin(timestamps, {
+// Extra properties for model
+EventSchema.plugin(timestamps, {
   createdAt: 'createdAt',
   updatedAt: 'modifiedAt'
 });
 
-module.exports = mongoose.model('calendar', CalendarSchema);
+module.exports = mongoose.model('event', EventSchema);

@@ -29,10 +29,22 @@ const deleteArticle = async ({ id }) => {
   return await learningService.deleteArticle({ id });
 };
 
+const getAllCategories = async () => {
+  return await learningService.getAllCategories();
+};
+
+const getAllArticlesOfCategory = async (category) => {
+  if (typeof category !== 'string') throw new Error('category must be a string');
+  if (!category) throw new Error('category is required');
+  return await learningService.getAllArticlesOfCategory(category);
+};
+
 module.exports = {
   getAllArticles,
   getArticleByID,
   postArticle,
   editArticle,
   deleteArticle,
+  getAllCategories,
+  getAllArticlesOfCategory,
 };

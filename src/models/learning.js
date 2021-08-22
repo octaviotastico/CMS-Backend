@@ -3,7 +3,7 @@ const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
 
 // Learning model schema
-const LearningSchema = new Schema({
+const ArticleSchema = new Schema({
   category: { type: String, required: true },
   title: { type: String, required: true },
   subtitle: { type: String },
@@ -15,7 +15,7 @@ const LearningSchema = new Schema({
 });
 
 // Extra options for mongoose
-LearningSchema.options.toJSON = {
+ArticleSchema.options.toJSON = {
   transform: function (doc, ret) {
     ret.id = ret._id // Change _id key to id
     delete ret._id   // Don't include the _id in JSON
@@ -24,9 +24,10 @@ LearningSchema.options.toJSON = {
   }
 };
 
-LearningSchema.plugin(timestamps, {
+// Extra properties for model
+ArticleSchema.plugin(timestamps, {
   createdAt: 'createdAt',
   updatedAt: 'modifiedAt'
 });
 
-module.exports = mongoose.model('learning', LearningSchema);
+module.exports = mongoose.model('articles', ArticleSchema);

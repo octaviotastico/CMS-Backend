@@ -43,10 +43,25 @@ const deleteArticle = async (req, res) => {
   return response;
 };
 
+const getAllCategories = async (req, res) => {
+  const response = await learningDelegate.getAllCategories();
+  res.status(201).json(response);
+  return response;
+};
+
+const getAllArticlesOfCategory = async (req, res) => {
+  const { category } = req.params;
+  const response = await learningDelegate.getAllArticlesOfCategory(category);
+  res.status(201).json(response);
+  return response;
+};
+
 module.exports = {
   getAllArticles,
   getArticleByID,
   postArticle,
   editArticle,
   deleteArticle,
+  getAllCategories,
+  getAllArticlesOfCategory,
 };

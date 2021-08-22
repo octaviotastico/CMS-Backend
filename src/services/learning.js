@@ -28,10 +28,21 @@ const deleteArticle = async ({ id }) => {
   return await LearningModel.findOneAndRemove(id);
 }
 
+const getAllCategories = async () => {
+  return await LearningModel.distinct("category");
+};
+
+const getAllArticlesOfCategory = async (category) => {
+  console.log(category)
+  return await LearningModel.find({ category }, "title subtitle author description category preview");
+};
+
 module.exports = {
   getAllArticles,
   getArticleByID,
   postArticle,
   editArticle,
   deleteArticle,
+  getAllCategories,
+  getAllArticlesOfCategory,
 }
