@@ -1,8 +1,3 @@
-const struct = require('python-struct');
-const uuid = require('uuid').v4;
-
-const commons = require('./constants');
-
 const sleep = (seconds) => {
   return new Promise(resolve => setTimeout(resolve, seconds));
 };
