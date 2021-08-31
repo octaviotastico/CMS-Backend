@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, us
 app.use('/aap', require('./src/routes/aap'));
 app.use('/calendar', require('./src/routes/calendar'));
 app.use('/learning', require('./src/routes/learning'));
+app.use('/people', require('./src/routes/people'));
 
 // App listening to port 2424
 app.listen(2424, () => {
