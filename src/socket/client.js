@@ -1,17 +1,20 @@
 // Library Imports
-const net = require('net');
-
-// Returns a new connection
-const createConnection = (host='localhost', port=4242) => {
-  return net.createConnection({ host, port });
-};
+const io = require("socket.io-client");
 
 // Sends a message over the connection
-const sendMessage = (client, message) => {
-  client.write(message);
+const sendMessage = ({
+  dest = "http://localhost:7575",
+  message = "Hello :D",
+  messageType = null,
+}) => {
+  const socket = io.connect(dest);
+  if (messageType === null) {
+    socket.send(message);
+  } else {
+    socket.emit(messageType, message);
+  }
 };
 
 module.exports = {
-  createConnection,
   sendMessage,
 };

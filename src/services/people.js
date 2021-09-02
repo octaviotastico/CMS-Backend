@@ -16,17 +16,15 @@ const getPeopleByID = async (id) => {
   return await PeopleModel.findById(id);
 };
 
-const postPeople = async (person) => {
-  // TODO: Sync with other backends
+const savePersonInDatabase = async (person) => {
   return await new PeopleModel(person).save();
 };
 
-const editPeople = async (id, person) => {
-  // TODO: Sync with other backends
+const updateInDatabase = async (id, person) => {
   return await PeopleModel.findByIdAndUpdate(id, person, { new: false });
 };
 
-const deletePeople = async (id) => {
+const deleteFromDatabase = async (id) => {
   return await PeopleModel.findByIdAndRemove(id);
 };
 
@@ -35,7 +33,7 @@ module.exports = {
   getAllTags,
   getAllPeopleOfTag,
   getPeopleByID,
-  postPeople,
-  editPeople,
-  deletePeople,
+  savePersonInDatabase,
+  updateInDatabase,
+  deleteFromDatabase,
 };

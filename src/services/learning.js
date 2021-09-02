@@ -29,7 +29,7 @@ const editArticle = async ({ id, article }) => {
 
 const deleteArticle = async ({ id }) => {
   // TODO: Sync with other backends
-  return await LearningModel.findOneAndRemove(id);
+  return await LearningModel.findByIdAndRemove(id);
 };
 
 module.exports = {

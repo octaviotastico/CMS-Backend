@@ -1,4 +1,5 @@
-const { getDefinedValues } = require('../commons/functions');
+const commons = require('../commons/functions');
+const dtnBackendService = require('../services/dtnBackend');
 const peopleService = require('../services/people');
 
 const getAllPeople = async () => {
@@ -18,17 +19,48 @@ const getPeopleByID = async (id) => {
 }
 
 const postPeople = async (person) => {
-  const data = getDefinedValues(person);
-  return await peopleService.postPeople(data);
+  const data = commons.getDefinedValues(person);
+
+  // Saving to database
+  const res = await peopleService.savePersonInDatabase(data);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: '/people',
+    msgKind: 'POST',
+    data: data,
+  });
+
+  return res;
 }
 
 const editPeople = async (id, ...person) => {
-  const data = getDefinedValues(...person);
-  return await peopleService.editPeople(id, data);
+  const data = commons.getDefinedValues(...person);
+
+  // Saving to database
+  const res = await peopleService.updateInDatabase(id, data);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/people/person/${id}`,
+    msgKind: 'PATCH',
+    data: data,
+  });
+
+  return res;
 }
 
 const deletePeople = async (id) => {
-  return await peopleService.deletePeople(id);
+  // Saving to database
+  const res = await peopleService.deleteFromDatabase(id);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/people/person/${id}`,
+    msgKind: 'DELETE',
+  });
+
+  return res;
 }
 
 module.exports = {

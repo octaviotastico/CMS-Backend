@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, us
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 
 // Routes
@@ -30,7 +30,7 @@ app.listen(2424, () => {
 
 
 // Socket io client setup
-const io = require("socket.io-client")
+const io = require("socket.io-client");
 const ioClient = io.connect("http://localhost:7575");
 
 
