@@ -21,7 +21,8 @@ const updateDTNBackends = async (message) => {
   fileAddresses.forEach((address) => {
     client.sendMessage({
       dest: address,
-      message,
+      message: message,
+      messageType: "cms-message",
     });
   });
 }
