@@ -12,6 +12,14 @@ const isValidDate = (d) => {
   return d instanceof Date && !isNaN(d);
 };
 
+const parseParameters = (args, argName, envName, defaultValue) => {
+  if (args.includes(argName))
+    return args[args.indexOf('--http-port') + 1];
+  if (process.env[envName])
+    return process.env[envName];
+  return defaultValue;
+}
+
 const checkRequiredFields = (obj, requiredFields) => {
   requiredFields.forEach((field) => {
     checkUndefined(obj[field], field);
@@ -62,6 +70,7 @@ module.exports = {
   sleep,
   checkUndefined,
   isValidDate,
+  parseParameters,
   checkRequiredFields,
   checkEmptyFields,
   checkFieldTypes,
