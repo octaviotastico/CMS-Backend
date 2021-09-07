@@ -37,7 +37,7 @@ const postEvent = async (event) => {
     endpoint: '/calendar/events',
     action: 'POST',
     payload: data,
-  });
+  }, "local-cms");
 
 
   return res;
@@ -54,7 +54,7 @@ const editEvent = async (id, event) => {
     endpoint: `/calendar/event/${id}`,
     action: 'PATCH',
     payload: data,
-  });
+  }, "local-cms");
 
   return res;
 };
@@ -67,7 +67,7 @@ const deleteEvent = async (id) => {
   dtnBackendService.updateDTNBackends({
     endpoint: `/calendar/event/${id}`,
     action: 'DELETE',
-  });
+  }, "local-cms");
 
   return res;
 };

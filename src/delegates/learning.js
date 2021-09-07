@@ -20,7 +20,7 @@ const postArticle = async (article) => {
     endpoint: '/learning/articles',
     action: 'POST',
     payload: data,
-  });
+  }, "local-cms");
 
   return res;
 };
@@ -36,7 +36,7 @@ const editArticle = async (id, article) => {
     endpoint: `/learning/article/${id}`,
     action: 'PATCH',
     payload: data,
-  });
+  }, "local-cms");
 
   return res;
 };
@@ -49,7 +49,7 @@ const deleteArticle = async (id) => {
   dtnBackendService.updateDTNBackends({
     endpoint: `/learning/article/${id}`,
     action: 'DELETE',
-  });
+  }, "local-cms");
 
   return res;
 };

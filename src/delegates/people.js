@@ -29,7 +29,7 @@ const postPeople = async (person) => {
     endpoint: '/people',
     action: 'POST',
     payload: data,
-  });
+  }, "local-cms");
 
   return res;
 };
@@ -45,7 +45,7 @@ const editPeople = async (id, person) => {
     endpoint: `/people/person/${id}`,
     action: 'PATCH',
     payload: data,
-  });
+  }, "local-cms");
 
   return res;
 };
@@ -58,7 +58,7 @@ const deletePeople = async (id) => {
   dtnBackendService.updateDTNBackends({
     endpoint: `/people/person/${id}`,
     action: 'DELETE',
-  });
+  }, "local-cms");
 
   return res;
 };
