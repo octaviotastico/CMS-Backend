@@ -45,7 +45,7 @@ const getAllPastEvents = async (req, res) => {
  */
 const getEventByID = async (req, res) => {
   const { id } = req.params;
-  const response = await calendarDelegate.getEventByID({ id });
+  const response = await calendarDelegate.getEventByID(id);
   if (!response) {
     res.status(404).json(response);
   } else {
@@ -70,7 +70,7 @@ const postEvent = async (req, res) => {
 const editEvent = async (req, res) => {
   const { id } = req.params;
   const { title, description, startDate, endDate, expositor, preview, tags } = req.body;
-  const response = await calendarDelegate.editEvent({ id, title, description, startDate, endDate, expositor, preview, tags });
+  const response = await calendarDelegate.editEvent(id, { title, description, startDate, endDate, expositor, preview, tags });
   res.status(201).json(response);
   return response;
 };
@@ -80,7 +80,7 @@ const editEvent = async (req, res) => {
  */
 const deleteEvent = async (req, res) => {
   const { id } = req.params;
-  const response = await calendarDelegate.deleteEvent({ id });
+  const response = await calendarDelegate.deleteEvent(id);
   if (!response) {
     res.status(404).json(response);
   } else {

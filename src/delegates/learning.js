@@ -1,32 +1,57 @@
+const commons = require('../commons/functions');
 const learningService = require('../services/learning');
 
 const getAllArticles = async () => {
   return await learningService.getAllArticles();
 };
 
-const getArticleByID = async ({ id }) => {
-  return await learningService.getArticleByID({ id });
+const getArticleByID = async (id) => {
+  return await learningService.getArticleByID(id);
 };
 
-const postArticle = async ({ category, title, subtitle, author, description, preview, content, tags }) => {
-  return await learningService.postArticle({ category, title, subtitle, author, description, preview, content, tags });
+const postArticle = async (article) => {
+  const data = commons.getDefinedValues(article);
+
+  // Saving to local database
+  const res = await learningService.postArticle(data);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: '/learning/articles',
+    action: 'POST',
+    payload: data,
+  });
+
+  return res;
 };
 
-const editArticle = async ({ id, category, title, subtitle, author, description, preview, content, tags }) => {
-  let article = {};
-  if (category) article.category = category;
-  if (title) article.title = title;
-  if (subtitle) article.subtitle = subtitle;
-  if (author) article.author = author;
-  if (description) article.description = description;
-  if (preview) article.preview = preview;
-  if (content) article.content = content;
-  if (tags) article.tags = tags;
-  return await learningService.editArticle({ id, article });
+const editArticle = async (id, article) => {
+  const data = commons.getDefinedValues(article);
+
+  // Saving to local database
+  const res = await learningService.editArticle(id, data);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/learning/article/${id}`,
+    action: 'PATCH',
+    payload: data,
+  });
+
+  return res;
 };
 
-const deleteArticle = async ({ id }) => {
-  return await learningService.deleteArticle({ id });
+const deleteArticle = async (id) => {
+  // Saving to local database
+  const res = await learningService.deleteArticle(id);
+
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/learning/article/${id}`,
+    action: 'DELETE',
+  });
+
+  return res;
 };
 
 const getAllCategories = async () => {

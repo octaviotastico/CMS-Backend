@@ -36,7 +36,7 @@ const postPeople = async (req, res) => {
 const editPeople = async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName, email, phone, photo, twitter, facebook, github, gitlab, bitbucket, linkedin, website, specialty, notes, tags } = req.body;
-  const response = await peopleDelegate.editPeople({ id, firstName, lastName, email, phone, photo, twitter, facebook, github, gitlab, bitbucket, linkedin, website, specialty, notes, tags });
+  const response = await peopleDelegate.editPeople(id, { firstName, lastName, email, phone, photo, twitter, facebook, github, gitlab, bitbucket, linkedin, website, specialty, notes, tags });
   res.status(202).json(response);
   return response;
 }

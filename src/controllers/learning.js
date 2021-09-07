@@ -8,7 +8,7 @@ const getAllArticles = async (req, res) => {
 
 const getArticleByID = async (req, res) => {
   const { id } = req.params;
-  const response = await learningDelegate.getArticleByID({ id });
+  const response = await learningDelegate.getArticleByID(id);
   if (!response) {
     res.status(404).json(response);
   } else {
@@ -27,14 +27,14 @@ const postArticle = async (req, res) => {
 const editArticle = async (req, res) => {
   const { id } = req.params;
   const { category, title, subtitle, author, description, preview, content, tags } = req.body;
-  const response = await learningDelegate.editArticle({ id, category, title, subtitle, author, description, preview, content, tags });
+  const response = await learningDelegate.editArticle(id, { category, title, subtitle, author, description, preview, content, tags });
   res.status(202).json(response);
   return response;
 };
 
 const deleteArticle = async (req, res) => {
   const { id } = req.params;
-  const response = await learningDelegate.deleteArticle({ id });
+  const response = await learningDelegate.deleteArticle(id);
   if (!response) {
     res.status(404).json(response);
   } else {

@@ -61,7 +61,7 @@ const getAllPastEvents = async ({ page, amount }) => {
 
 };
 
-const getEventByID = async ({ id }) => {
+const getEventByID = async (id) => {
   return await CalendarModel.findById({ _id: id });
 };
 
@@ -75,7 +75,7 @@ const editEvent = async (id, event) => {
   return await CalendarModel.findByIdAndUpdate(id, event);
 };
 
-const deleteEvent = async ({ id }) => {
+const deleteEvent = async (id) => {
   // TODO: Sync with other backends
   return await CalendarModel.findByIdAndRemove(id);
 };

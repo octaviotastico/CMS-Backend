@@ -1,32 +1,21 @@
-const os = require("os");
+// Library Imports
+const io = require("socket.io-client");
 
-const DTNBackendAddresses = require('../models/dtnBackend');
-const { readEntireFile } = require('../commons/fileSystem');
+// Local Imports
 const commons = require('../commons/functions');
-const client = require('../socket/client');
 
-const updateDTNBackends = async (message) => {
+const updateDTNBackends = async (message, messageType = null) => {
   commons.checkUndefined(message);
 
-  const databaseAddresses = await DTNBackendAddresses.find({});
-  const fileAddresses = readEntireFile().split(os.EOL);
+  const client = io.connect(`${DTN_HOST}:${DTN_PORT}`);
 
-  databaseAddresses.forEach((address) => {
-    client.sendMessage({
-      dest: `${address.host}:${address.port}`,
-      message,
-    });
-  });
-
-  fileAddresses.forEach((address) => {
-    client.sendMessage({
-      dest: address,
-      message: message,
-      messageType: "cms-message",
-    });
-  });
-}
+  if (messageType === null) {
+    client.send(message);
+  } else {
+    client.emit(messageType, message);
+  }
+};
 
 module.exports = {
   updateDTNBackends
-}
+};

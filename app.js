@@ -5,10 +5,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { Server } = require("socket.io");
 
-
 // Local Imports
 const commons = require('./src/commons/functions');
-
 
 // Parsing parameters (if given)
 var args = process.argv.slice(2);
@@ -27,10 +25,20 @@ global.DTN_HOST = DTN_HOST;
 global.DTN_PORT = DTN_PORT;
 
 
+////////////////////////////////
+///// Local Database setup /////
+////////////////////////////////
+
+
 // Database Connection
 mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(() => {
   console.log('Connected to database');
 });
+
+
+/////////////////////////////
+///// HTTP Server setup /////
+/////////////////////////////
 
 
 // App setup
@@ -50,6 +58,11 @@ app.use('/people', require('./src/routes/people'));
 app.listen(HTTP_PORT, () => {
   console.log('CMS up and runnig!! 🕺🕺🕺');
 });
+
+
+////////////////////////////////////////
+///// DTN Backend connection setup /////
+////////////////////////////////////////
 
 
 // Socket io server setup

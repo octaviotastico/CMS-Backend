@@ -18,83 +18,58 @@ const getAllPastEvents = async ({ page, amount }) => {
   return await calendarService.getAllPastEvents({ page, amount });
 };
 
-const getEventByID = async ({ id }) => {
+const getEventByID = async (id) => {
   if (typeof id !== 'string' || id === '') {
     throw new Error('ID is required and must be a string');
   }
 
-  return await calendarService.getEventByID({ id });
+  return await calendarService.getEventByID(id);
 };
 
-const postEvent = async ({ title, description, startDate, endDate, expositor, preview, tags }) => {
-  // TODO: Create a function like:
-  // commons.checkRequiredFields(
-  //   ['title', 'description', 'date', 'expositor'],
-  //   { title, description, startDate, endDate, expositor }
-  // );
-  if (typeof title !== 'string' || title === '') {
-    throw new Error('Title is required and must be a string');
-  }
+const postEvent = async (event) => {
+  const data = commons.getDefinedValues(event);
 
-  if (typeof description !== 'string' || description === '') {
-    throw new Error('Description is required and must be a string');
-  }
+  // Saving to local database
+  const res = await calendarService.postEvent(data);
 
-  startDate = new Date(startDate);
-  if (!commons.isValidDate(startDate)) {
-    throw new Error('Start Date not provided or bad format');
-  }
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: '/calendar/events',
+    action: 'POST',
+    payload: data,
+  });
 
-  endDate = new Date(endDate);
-  if (!commons.isValidDate(endDate)) {
-    throw new Error('End Date not provided or bad format');
-  }
 
-  if (typeof expositor !== 'string' || expositor === '') {
-    throw new Error('Expositor is required');
-  }
-
-  return await calendarService.postEvent({ title, description, startDate, endDate, expositor, preview, tags });
+  return res;
 };
 
-const editEvent = async ({ id, title, description, startDate, endDate, expositor, preview, tags }) => {
-  if (typeof id !== 'string' || id === '') {
-    throw new Error('ID is required and must be a string');
-  }
+const editEvent = async (id, event) => {
+  const data = commons.getDefinedValues(event);
 
-  const edit = {};
+  // Saving to local database
+  const res = await calendarService.editEvent(id, edit);
 
-  if (typeof title !== 'undefined') {
-    edit.title = title;
-  }
-  if (typeof description !== 'undefined') {
-    edit.description = description;
-  }
-  if (typeof startDate !== 'undefined') {
-    edit.startDate = startDate;
-  }
-  if (typeof endDate !== 'undefined') {
-    edit.endDate = endDate;
-  }
-  if (typeof expositor !== 'undefined') {
-    edit.expositor = expositor;
-  }
-  if (typeof preview !== 'undefined') {
-    edit.preview = preview;
-  }
-  if (typeof tags !== 'undefined') {
-    edit.tags = tags;
-  }
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/calendar/event/${id}`,
+    action: 'PATCH',
+    payload: data,
+  });
 
-  return await calendarService.editEvent(id, edit);
+  return res;
 };
 
-const deleteEvent = async ({ id }) => {
-  if (typeof id !== 'string' || id === '') {
-    throw new Error('ID is required and must be a string');
-  }
+const deleteEvent = async (id) => {
+  // Saving to local database
+  const res = await calendarService.deleteEvent(id);
 
-  return await calendarService.deleteEvent({ id });
+  // Sync with DTN Backend
+  dtnBackendService.updateDTNBackends({
+    endpoint: `/calendar/event/${id}`,
+    action: 'DELETE',
+  });
+
+  return res;
 };
 
 module.exports = {
