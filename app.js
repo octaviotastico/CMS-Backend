@@ -15,7 +15,7 @@ const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424
 const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
 // DTN Backend (their) Variables
 const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'http://localhost');
-const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7575);
+const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7474);
 
 
 // Saving them so we can use them later
