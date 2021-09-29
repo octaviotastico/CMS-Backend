@@ -56,7 +56,7 @@ app.use('/people', require('./src/routes/people'));
 
 // Listen for HTTP requests on port 2424
 app.listen(HTTP_PORT, () => {
-  console.log('CMS up and runnig!! 🕺🕺🕺');
+  console.log(`HTTP Server up and runnig on port ${HTTP_PORT}!! 🕺🕺🕺`);
 });
 
 
@@ -104,5 +104,5 @@ io.on("connection", (socket) => {
 
 // Listen for socket requests on port 2525
 server.listen(TCP_PORT, () => {
-  console.log('Socket connection for CMS Backend up and runnig!! 🕺🕺🕺');
+  console.log(`Socket Server listening on port ${TCP_PORT}!! 🕺🕺🕺`);
 });
