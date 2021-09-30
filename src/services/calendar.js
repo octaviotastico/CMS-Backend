@@ -66,17 +66,14 @@ const getEventByID = async (id) => {
 };
 
 const postEvent = async (event) => {
-  // TODO: Sync with other backends
   return await CalendarModel.create(event);
 };
 
 const editEvent = async (id, event) => {
-  // TODO: Sync with other backends
   return await CalendarModel.findByIdAndUpdate(id, event);
 };
 
 const deleteEvent = async (id) => {
-  // TODO: Sync with other backends
   return await CalendarModel.findByIdAndRemove(id);
 };
 
