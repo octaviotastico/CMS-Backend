@@ -43,6 +43,7 @@ mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, us
 
 // App setup
 const app = express();
+app.use('/storage', express.static('storage'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());

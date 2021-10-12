@@ -18,7 +18,9 @@ const getArticleByID = async (req, res) => {
 };
 
 const postArticle = async (req, res) => {
-  const { category, title, subtitle, author, description, preview, content, tags } = req.body;
+  const preview = req.file.path;
+  const { category, title, subtitle, author, description, content, tags } = req.body;
+  console.log("HERE", preview, category, title, subtitle, author, description, content, tags);
   const response = await learningDelegate.postArticle({ category, title, subtitle, author, description, preview, content, tags });
   res.status(201).json(response);
   return response;
@@ -26,7 +28,8 @@ const postArticle = async (req, res) => {
 
 const editArticle = async (req, res) => {
   const { id } = req.params;
-  const { category, title, subtitle, author, description, preview, content, tags } = req.body;
+  const preview = req.file.path;
+  const { category, title, subtitle, author, description, content, tags } = req.body;
   const response = await learningDelegate.editArticle(id, { category, title, subtitle, author, description, preview, content, tags });
   res.status(202).json(response);
   return response;
