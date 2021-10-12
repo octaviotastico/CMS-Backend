@@ -4,13 +4,12 @@ const Schema = mongoose.Schema;
 
 // Learning model schema
 const ArticleSchema = new Schema({
-  category: { type: String, required: true },
   title: { type: String, required: true },
   subtitle: { type: String },
-  author: { type: String, required: true },
-  description: { type: String, required: true },
-  preview: { type: String },
   content: { type: String, required: true },
+  preview: { type: String },
+  category: { type: String, required: true },
+  author: { type: String, required: true },
   tags: [{ type: String, required: true }],
 });
 

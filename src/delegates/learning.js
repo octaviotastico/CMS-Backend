@@ -55,6 +55,10 @@ const deleteArticle = async (id) => {
   return res;
 };
 
+const getAllTags = async () => {
+  return await learningService.getAllTags();
+};
+
 const getAllCategories = async () => {
   return await learningService.getAllCategories();
 };
@@ -71,6 +75,7 @@ module.exports = {
   postArticle,
   editArticle,
   deleteArticle,
+  getAllTags,
   getAllCategories,
   getAllArticlesOfCategory,
 };

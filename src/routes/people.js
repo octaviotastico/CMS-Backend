@@ -4,6 +4,7 @@ const express = require('express');
 // Local Imports
 const routeController = require('../commons/routeController');
 const peopleController = require('../controllers/people');
+const { fileStorage } = require('../storage/storage');
 
 // Routing
 const router = express.Router();
@@ -30,12 +31,12 @@ router.get('/person/:id', (req, res) => {
 });
 
 // Post a new person
-router.post('/', (req, res) => {
+router.post('/', fileStorage.single('photo'), (req, res) => {
   routeController.handleRequest(req, res, peopleController.postPeople);
 });
 
 // Edit/Update an existing person
-router.patch('/person/:id', (req, res) => {
+router.patch('/person/:id', fileStorage.single('photo'), (req, res) => {
   routeController.handleRequest(req, res, peopleController.editPeople);
 });
 

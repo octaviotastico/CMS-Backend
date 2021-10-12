@@ -4,6 +4,7 @@ const express = require('express');
 // Local Imports
 const routeController = require('../commons/routeController');
 const calendarController = require('../controllers/calendar');
+const { fileStorage } = require('../storage/storage');
 
 // Routing
 const router = express.Router();
@@ -35,12 +36,12 @@ router.get('/event/:id', (req, res) => {
 });
 
 // Post a new event.
-router.post('/events', (req, res) => {
+router.post('/events', fileStorage.single('preview'), (req, res) => {
   routeController.handleRequest(req, res, calendarController.postEvent);
 });
 
 // Edit/Update an existing event.
-router.patch('/event/:id', (req, res) => {
+router.patch('/event/:id', fileStorage.single('preview'), (req, res) => {
   routeController.handleRequest(req, res, calendarController.editEvent);
 });
 
