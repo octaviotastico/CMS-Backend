@@ -1,25 +1,17 @@
 const LearningModel = require('../models/learning');
 
 const getAllArticles = async () => {
-  const articles = await LearningModel.find({}, "title subtitle content author category preview");
+  const articles = await LearningModel.find({}, "title subtitle content author category tags preview");
 
   return articles.map(article => {
-    article.description = article.content.substring(0, 3);
-    delete article.content;
-    console.log("article", article);
+    article.content = article.content.substring(0, 100);
     return article;
   });
 };
 
 const getAllTags = async () => {
   let allTags = await LearningModel.find({}, "tags");
-  // allTags = allTags.map(elem => {
-  //   console.log("elem", elem);
-  //   return elem.tags.split(",");
-  // }).flat()
-  // console.log("allTags", allTags);
-  // console.log("[...new Set(allTags)]", [...new Set(allTags)]);
-  return [...new Set(allTags.map(elem => elem.tags))];
+  return [...new Set(...allTags.map(elem => elem.tags))];
 };
 
 const getAllCategories = async () => {
@@ -27,12 +19,10 @@ const getAllCategories = async () => {
 };
 
 const getAllArticlesOfCategory = async (category) => {
-  const articles = await LearningModel.find({ category }, "title subtitle content author category preview");
+  const articles = await LearningModel.find({ category }, "title subtitle content author category tags preview");
 
   return articles.map(article => {
-    article.description = article.content.substring(0, 3);
-    delete article.content;
-    console.log("article", article);
+    article.content = article.content.substring(0, 100);
     return article;
   });
 };

@@ -108,3 +108,6 @@ dist
 
 # Yarn lock file
 yarn.lock
+
+# User Files Storage
+storage
