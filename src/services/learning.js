@@ -10,8 +10,9 @@ const getAllArticles = async () => {
 };
 
 const getAllTags = async () => {
-  let allTags = await LearningModel.find({}, "tags");
-  return [...new Set(...allTags.map(elem => elem.tags))];
+  const allTags = await LearningModel.find({}, "tags");
+  const flatTags = allTags.map(elem => elem.tags).flat();
+  return [...new Set(flatTags)];
 };
 
 const getAllCategories = async () => {
