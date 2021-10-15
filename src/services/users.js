@@ -33,7 +33,10 @@ const login = async (username, password) => {
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) return false;
 
-  return user;
+  return {
+    username: user.username,
+    email: user.email,
+  };
 };
 
 const signup = async (username, password, firstName, lastName, email) => {

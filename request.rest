@@ -1,0 +1,47 @@
+# POST http://localhost:2424/users/signup
+# Content-Type: application/json
+
+# {
+#   "username": "carusoX",
+#   "password": "carusoPWD",
+#   "firstName": "Uziel",
+#   "lastName": "Ludueña",
+#   "email": "uziel.luduena@mi.unc.edu.ar"
+# }
+
+
+################
+
+# POST http://localhost:2424/users/signup
+# Content-Type: application/json
+
+# {
+#   "username": "MatuPe",
+#   "password": "MatiPWD",
+#   "firstName": "Matias",
+#   "lastName": "Pereyra",
+#   "email": "matias.pereyra@mi.unc.edu.ar"
+# }
+
+################
+
+# POST http://localhost:2424/users/login HTTP/1.1
+# Content-Type: application/json
+
+# {
+#   "username": "octaviotastico",
+#   "password": "octaPWD"
+# }
+
+# GET http://localhost:2424/users/user/6168e38cd124066a14f5fff4
+
+# POST http://localhost:2424/users/
+# Content-Type: application/json
+
+# {
+#   "username": "octaviotastico",
+#   "password": "octaPWD",
+#   "firstName": "Octavio",
+#   "lastName": "Percivaldi",
+#   "email": "octavio.percivaldi@mi.unc.edu.ar"
+# }
