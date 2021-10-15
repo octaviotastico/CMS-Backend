@@ -21,6 +21,11 @@ const deleteFromDatabase = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
 };
 
+const isUsernameAvailable = async (username) => {
+  const user = await UsersModel.findOne({ username });
+  return !user;
+};
+
 const login = async (username, password) => {
   const user = await UsersModel.findOne({ username });
   if (!user) return false;
@@ -29,6 +34,29 @@ const login = async (username, password) => {
   if (!isPasswordValid) return false;
 
   return user;
+};
+
+const signup = async (username, password, firstName, lastName, email) => {
+  if (!await isUsernameAvailable(username)) return false;
+
+  const passwordSalt = await bcrypt.genSalt(10);
+  const passwordHash = await bcrypt.hash(password, passwordSalt);
+
+  const newUser = new UsersModel({
+    username,
+    password: passwordHash,
+    firstName,
+    lastName,
+    email,
+  });
+  await newUser.save();
+  return {
+    id: newUser._id,
+    username: newUser.username,
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    email: newUser.email,
+  };
 };
 
 
@@ -49,6 +77,7 @@ module.exports = {
   updateInDatabase,
   deleteFromDatabase,
   login,
+  signup,
   getAllSkills,
   getAllUsersWithSkill,
 };

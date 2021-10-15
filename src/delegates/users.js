@@ -59,6 +59,14 @@ const login = async (username, password) => {
   return await usersService.login(username, password);
 };
 
+const signup = async (username, password, firstName, lastName, email) => {
+  if (!username || !password || !firstName || !lastName || !email) {
+    throw new Error('Missing parameters');
+  }
+
+  return await usersService.signup(username, password, firstName, lastName, email);
+};
+
 const getAllSkills = async () => {
   return await usersService.getAllSkills();
 };
@@ -74,6 +82,7 @@ module.exports = {
   editUser,
   deleteUsers,
   login,
+  signup,
   getAllSkills,
   getAllUsersWithSkill,
 };

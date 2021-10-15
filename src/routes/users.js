@@ -39,6 +39,10 @@ router.post('/login', (req, res) => {
   routeController.handleRequest(req, res, usersController.login);
 });
 
+router.post('/signup', (req, res) => {
+  routeController.handleRequest(req, res, usersController.signup);
+});
+
 // Get all the different skills of users
 router.get('/skills', (req, res) => {
   routeController.handleRequest(req, res, usersController.getAllSkills);
