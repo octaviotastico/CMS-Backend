@@ -52,7 +52,7 @@ app.use(cors());
 // Routes
 app.use('/calendar', require('./src/routes/calendar'));
 app.use('/learning', require('./src/routes/learning'));
-app.use('/people', require('./src/routes/people'));
+app.use('/users', require('./src/routes/users'));
 
 
 // Listen for HTTP requests on port 2424
