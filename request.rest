@@ -1,3 +1,16 @@
+POST http://localhost:2424/users/signup
+Content-Type: application/json
+
+{
+  "username": "octaviotastico",
+  "password": "octaPWD",
+  "firstName": "Octavio",
+  "lastName": "Percivaldi",
+  "email": "octavio.percivaldi@mi.unc.edu.ar"
+}
+
+
+
 # POST http://localhost:2424/users/signup
 # Content-Type: application/json
 
@@ -10,7 +23,7 @@
 # }
 
 
-################
+# ################
 
 # POST http://localhost:2424/users/signup
 # Content-Type: application/json
@@ -33,15 +46,4 @@
 #   "password": "octaPWD"
 # }
 
-# GET http://localhost:2424/users/user/6168e38cd124066a14f5fff4
-
-# POST http://localhost:2424/users/
-# Content-Type: application/json
-
-# {
-#   "username": "octaviotastico",
-#   "password": "octaPWD",
-#   "firstName": "Octavio",
-#   "lastName": "Percivaldi",
-#   "email": "octavio.percivaldi@mi.unc.edu.ar"
-# }
+# GET http://localhost:2424/users/user/6169d17767d3f1091767f836

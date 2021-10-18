@@ -156,11 +156,10 @@ const login = async (req, res) => {
   const { username, password } = req.body;
   const response = await usersDelegate.login(username, password);
   if (!response) {
-    res.status(404).json(response);
+    res.status(401).send('Invalid username or password');
   } else {
     res.status(202).json(response);
   }
-  return response;
 }
 
 const signup = async (req, res) => {
@@ -173,7 +172,7 @@ const signup = async (req, res) => {
     email
   );
   if (!response) {
-    res.status(404).json(response);
+    res.status(401).json(response);
   } else {
     res.status(202).json(response);
   }
