@@ -1,7 +1,7 @@
 const LearningModel = require('../models/learning');
 
 const getAllArticles = async () => {
-  const articles = await LearningModel.find({}, "title subtitle content author category tags preview");
+  const articles = await LearningModel.dt_find({}, "title subtitle content author category tags preview");
 
   return articles.map(article => {
     article.content = article.content.substring(0, 100);
@@ -10,7 +10,7 @@ const getAllArticles = async () => {
 };
 
 const getAllTags = async () => {
-  const allTags = await LearningModel.find({}, "tags");
+  const allTags = await LearningModel.dt_find({}, "tags");
   const flatTags = allTags.map(elem => elem.tags).flat();
   return [...new Set(flatTags)];
 };
@@ -20,7 +20,7 @@ const getAllCategories = async () => {
 };
 
 const getAllArticlesOfCategory = async (category) => {
-  const articles = await LearningModel.find({ category }, "title subtitle content author category tags preview");
+  const articles = await LearningModel.dt_find({ category }, "title subtitle content author category tags preview");
 
   return articles.map(article => {
     article.content = article.content.substring(0, 100);
@@ -36,7 +36,7 @@ const postArticle = async (article) => {
   if (article.tags) {
     article.tags = article.tags.split(",");
   }
-  const response = await new LearningModel(article).save();
+  const response = await LearningModel.dt_create(article);
   return response;
 };
 

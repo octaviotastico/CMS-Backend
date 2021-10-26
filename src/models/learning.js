@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('./delay-tolerant-mongoose');
 const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
 
@@ -29,4 +29,6 @@ ArticleSchema.plugin(timestamps, {
   updatedAt: 'modifiedAt'
 });
 
-module.exports = mongoose.model('articles', ArticleSchema);
+const exporting = mongoose.model('articles', ArticleSchema);
+
+module.exports = exporting;
