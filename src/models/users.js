@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('delay-tolerant-mongoose');
 const timestamps = require('mongoose-timestamp');
 const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;

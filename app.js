@@ -2,7 +2,7 @@
 const cors = require('cors');
 const http = require('http');
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('delay-tolerant-mongoose');
 const { Server } = require("socket.io");
 
 // Local Imports
@@ -31,7 +31,7 @@ global.DTN_PORT = DTN_PORT;
 
 
 // Database Connection
-mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(() => {
+mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   console.log('Connected to database');
 });
 

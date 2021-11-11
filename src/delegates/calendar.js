@@ -34,11 +34,11 @@ const postEvent = async (event) => {
   const res = await calendarService.postEvent(data);
 
   // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: '/calendar/events',
-    action: 'POST',
-    payload: data,
-  }, "local-cms");
+  // dtnBackendService.updateDTNBackends({
+  //   endpoint: '/calendar/events',
+  //   action: 'POST',
+  //   payload: data,
+  // }, "local-cms");
 
 
   return res;
@@ -51,11 +51,11 @@ const editEvent = async (id, event) => {
   const res = await calendarService.editEvent(id, edit);
 
   // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/calendar/event/${id}`,
-    action: 'PATCH',
-    payload: data,
-  }, "local-cms");
+  // dtnBackendService.updateDTNBackends({
+  //   endpoint: `/calendar/event/${id}`,
+  //   action: 'PATCH',
+  //   payload: data,
+  // }, "local-cms");
 
   return res;
 };
@@ -65,10 +65,10 @@ const deleteEvent = async (id) => {
   const res = await calendarService.deleteEvent(id);
 
   // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/calendar/event/${id}`,
-    action: 'DELETE',
-  }, "local-cms");
+  // dtnBackendService.updateDTNBackends({
+  //   endpoint: `/calendar/event/${id}`,
+  //   action: 'DELETE',
+  // }, "local-cms");
 
   return res;
 };

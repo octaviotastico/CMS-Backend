@@ -1,4 +1,4 @@
-const mongoose = require('./delay-tolerant-mongoose');
+const mongoose = require('delay-tolerant-mongoose');
 const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
 
