@@ -10,10 +10,10 @@ const commons = require('./src/commons/functions');
 
 // Parsing parameters (if given)
 var args = process.argv.slice(2);
-// CMS Backend (our) Variables
+
 const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424);
 const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
-// DTN Backend (their) Variables
+
 const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'http://localhost');
 const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7474);
 
@@ -21,13 +21,11 @@ const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7474);
 // Saving them so we can use them later
 global.HTTP_PORT = HTTP_PORT;
 global.TCP_PORT = TCP_PORT;
-global.DTN_HOST = DTN_HOST;
-global.DTN_PORT = DTN_PORT;
 
 
-////////////////////////////////
-///// Local Database setup /////
-////////////////////////////////
+//////////////////////////
+///// Database setup /////
+//////////////////////////
 
 
 // Database Connection
@@ -35,6 +33,7 @@ mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, us
   console.log('Connected to database');
 });
 
+mongoose.configDtnAndStart({ DTN_HOST, DTN_PORT });
 
 /////////////////////////////
 ///// HTTP Server setup /////
@@ -61,39 +60,26 @@ app.listen(HTTP_PORT, () => {
 });
 
 
-////////////////////////////////////////
-///// DTN Backend connection setup /////
-////////////////////////////////////////
+////////////////////////////////////////////////
+///// Socket Server setup (for videocalls) /////
+////////////////////////////////////////////////
 
 
-// Socket io server setup
+// Socket io server setup.
 const server = http.createServer(app);
 const io = new Server(server);
 
 
-// (Move to a separate file)
+// (Move to a separate file).
 io.on("connection", (socket) => {
   console.log("Socket connection made!");
 
-  // Wellcome message
+  // Wellcome message.
   socket.emit("message", "Hello from the CMS backend!");
 
-  // Listen for new DTN Backend messages, to update local database.
-  socket.on("update", (data) => {
-    console.log("Received DTN update message:", data);
-    console.log("Updating local database...");
-  });
-
-  // Listen for text messages coming from DTN Backend.
-  socket.on("text-message", (data) => {
-    console.log("Received DTN Backend text message:", data);
-    console.log("Forwarding message to Frontend...");
-  });
-
-  // Listen for videocalls coming from DTN Backend.
+  // Listen for videocalls.
   socket.on("videocall", (data) => {
-    console.log("Received DTN Backend videocall:", data);
-    console.log("Forwarding DTN to Frontend...");
+    console.log("Received videocall:", data);
   });
 
   // Goodbye message.

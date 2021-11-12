@@ -1,5 +1,4 @@
 const commons = require('../commons/functions');
-const dtnBackendService = require('../services/dtnBackend');
 const usersService = require('../services/users');
 
 const getAllUsers = async () => {
@@ -12,47 +11,17 @@ const getUsersByID = async (id) => {
 
 const postUser = async (user) => {
   const data = commons.getDefinedValues(user);
-
-  // Saving to local database
-  const res = await usersService.savePersonInDatabase(data);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: '/users',
-    action: 'POST',
-    payload: data,
-  }, "local-cms");
-
-  return res;
+  return await usersService.savePersonInDatabase(data);
 };
 
 const editUser = async (id, user) => {
   const data = commons.getDefinedValues(user);
-
-  // Saving to local database
-  const res = await usersService.updateInDatabase(id, data);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/users/user/${id}`,
-    action: 'PATCH',
-    payload: data,
-  }, "local-cms");
-
-  return res;
+  return await usersService.updateInDatabase(id, data);
 };
 
 const deleteUsers = async (id) => {
   // Saving to local database
-  const res = await usersService.deleteFromDatabase(id);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/users/user/${id}`,
-    action: 'DELETE',
-  }, "local-cms");
-
-  return res;
+  return await usersService.deleteFromDatabase(id);
 };
 
 const login = async (username, password) => {

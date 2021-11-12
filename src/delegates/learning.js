@@ -1,5 +1,4 @@
 const commons = require('../commons/functions');
-const dtnBackendService = require('../services/dtnBackend');
 const learningService = require('../services/learning');
 
 const getAllArticles = async () => {
