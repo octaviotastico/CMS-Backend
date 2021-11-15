@@ -14,7 +14,7 @@ var args = process.argv.slice(2);
 const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424);
 const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
 
-const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'http://localhost');
+const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'localhost');
 const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7474);
 
 
