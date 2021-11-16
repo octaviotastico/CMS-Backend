@@ -3,7 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const express = require('express');
 const mongoose = require('delay-tolerant-mongoose');
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 
 // Local Imports
 const commons = require('./src/commons/functions');
@@ -15,7 +15,7 @@ const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424
 const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
 
 const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'localhost');
-const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 7474);
+const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 4242);
 
 
 // Saving them so we can use them later

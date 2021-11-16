@@ -54,3 +54,51 @@ If you also want to make it run every time your computer starts, do:
 ```
 sudo systemctl enable mongodb
 ```
+
+---
+
+TODO: Update this readme xD
+
+Term 1
+
+```
+make clean && make posix && make run-posix
+```
+
+Term 2
+
+```
+build/posix/ud3tn --eid dtn://a.dtn \
+                  --bp-version 7 \
+                  --aap-port 4242 \
+                  --cla "mtcp:*,4224"
+```
+
+Term 3
+
+```
+build/posix/ud3tn --eid dtn://b.dtn \
+                  --bp-version 7 \
+                  --aap-port 4243 \
+                  --cla "mtcp:*,4225"
+```
+
+Term 4
+
+```
+python tools/aap/aap_config.py --tcp localhost 4242 \
+                               --dest_eid dtn://a.dtn \
+                               --schedule 1 3600 100000 dtn://b.dtn mtcp:localhost:4225
+```
+
+And then:
+
+```
+python tools/aap/aap_send.py --tcp localhost 4242 dtn://b.dtn/bundlesink \
+                              'Hello, world!'
+```
+
+```
+python tools/aap/aap_send.py --tcp localhost 4242 dtn://b.dtn/bundlesink \
+                              '{ "modelName": "Model_Name_Value", "prop1": "value123" }'
+```
