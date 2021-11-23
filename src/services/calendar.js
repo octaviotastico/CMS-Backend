@@ -66,15 +66,15 @@ const getEventByID = async (id) => {
 };
 
 const postEvent = async (event) => {
-  return await CalendarModel.create(event);
+  return await CalendarModel.dtCreate(event);
 };
 
 const editEvent = async (id, event) => {
-  return await CalendarModel.findByIdAndUpdate(id, event);
+  return await CalendarModel.dtFindByIdAndUpdate(id, event);
 };
 
 const deleteEvent = async (id) => {
-  return await CalendarModel.findByIdAndRemove(id);
+  return await CalendarModel.dtFindByIdAndRemove(id);
 };
 
 module.exports = {

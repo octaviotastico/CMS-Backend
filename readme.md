@@ -91,7 +91,33 @@ python tools/aap/aap_config.py --tcp localhost 4242 \
                                --schedule 1 3600 100000 dtn://b.dtn mtcp:localhost:4225
 ```
 
-And then:
+And you can
+
+```
+python tools/aap/aap_config.py --tcp localhost 4243 \
+                               --dest_eid dtn://b.dtn \
+                               --schedule 1 3600 100000 dtn://a.dtn mtcp:localhost:4224
+```
+
+Finally, you can run the backends like this:
+
+```
+yarn start --http-port 2424 \
+           --tcp-port 2525 \
+           --dtn-port 4242 \
+           --eid-list dtn://b.dtn/bundlesink
+```
+
+and
+
+```
+yarn start --http-port 2626 \
+           --tcp-port 2727 \
+           --dtn-port 4243 \
+           --eid-list dtn://a.dtn/bundlesink
+```
+
+You can also use the tools given in the uD3TN repo:
 
 ```
 python tools/aap/aap_send.py --tcp localhost 4242 dtn://b.dtn/bundlesink \

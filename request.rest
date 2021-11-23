@@ -2,11 +2,11 @@ POST http://localhost:2424/users/signup
 Content-Type: application/json
 
 {
-  "username": "octaviotastico",
+  "username": "octaviotasticou2",
   "password": "octaPWD",
   "firstName": "Octavio",
   "lastName": "Percivaldi",
-  "email": "octavio.percivaldi@mi.unc.edu.ar"
+  "email": "octavio.percivaldi2@mi.unc.edu.ar"
 }
 
 

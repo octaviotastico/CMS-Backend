@@ -18,7 +18,7 @@ const getArticleByID = async (req, res) => {
 };
 
 const postArticle = async (req, res) => {
-  const preview = req.file.path;
+  const { path: preview } = req.file;
   const { category, title, subtitle, author, content, tags } = req.body;
   const response = await learningDelegate.postArticle({ category, title, subtitle, author, preview, content, tags });
   res.status(201).json(response);
@@ -45,7 +45,7 @@ const deleteArticle = async (req, res) => {
   return response;
 };
 
-const getAllTags = async (req, res) => {
+const getAllTags = async (_, res) => {
   const response = await learningDelegate.getAllTags();
   res.status(200).json(response);
   return response;

@@ -8,15 +8,31 @@ const checkUndefined = (obj, name) => {
   }
 };
 
+const checkParams = (...params) => {
+  if (params.some(elem => elem === undefined)) {
+    throw new Error(`Missing parameter at index ${params.indexOf(undefined)}`);
+  }
+};
+
 const isValidDate = (d) => {
   return d instanceof Date && !isNaN(d);
 };
 
 const parseParameters = (args, argName, envName, defaultValue) => {
-  if (args.includes(argName))
-    return args[args.indexOf(argName) + 1];
-  if (process.env[envName])
+  // Prioritize the arguments given by terminal.
+  if (args.includes(argName)) {
+    let argList = [];
+    for (let i = args.indexOf(argName) + 1; i < args.length; i++) {
+      if (args[i].includes("--")) break;
+      argList.push(args[i]);
+    }
+    return argList.length > 1 ? argList : argList[0];
+  }
+  // If param is not given by terminal, then look fot ir on env variable.
+  if (process.env[envName]) {
     return process.env[envName];
+  }
+  // If it isn't anywhere, then return the default value.
   return defaultValue;
 }
 
@@ -69,6 +85,7 @@ const getDefinedValues = (obj) => {
 module.exports = {
   sleep,
   checkUndefined,
+  checkParams,
   isValidDate,
   parseParameters,
   checkRequiredFields,

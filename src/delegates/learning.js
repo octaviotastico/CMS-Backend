@@ -6,52 +6,25 @@ const getAllArticles = async () => {
 };
 
 const getArticleByID = async (id) => {
+  commons.checkParams(id);
   return await learningService.getArticleByID(id);
 };
 
 const postArticle = async (article) => {
+  commons.checkParams(article);
   const data = commons.getDefinedValues(article);
-
-  // Saving to local database
-  const res = await learningService.postArticle(data);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: '/learning/articles',
-    action: 'POST',
-    payload: data,
-  }, "local-cms");
-
-  return res;
+  return await learningService.postArticle(data);
 };
 
 const editArticle = async (id, article) => {
+  commons.checkParams(id, article);
   const data = commons.getDefinedValues(article);
-
-  // Saving to local database
-  const res = await learningService.editArticle(id, data);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/learning/article/${id}`,
-    action: 'PATCH',
-    payload: data,
-  }, "local-cms");
-
-  return res;
+  return await learningService.editArticle(id, data);
 };
 
 const deleteArticle = async (id) => {
-  // Saving to local database
-  const res = await learningService.deleteArticle(id);
-
-  // Sync with DTN Backend
-  dtnBackendService.updateDTNBackends({
-    endpoint: `/learning/article/${id}`,
-    action: 'DELETE',
-  }, "local-cms");
-
-  return res;
+  commons.checkParams(id);
+  return await learningService.deleteArticle(id);
 };
 
 const getAllTags = async () => {
@@ -63,8 +36,8 @@ const getAllCategories = async () => {
 };
 
 const getAllArticlesOfCategory = async (category) => {
+  commons.checkParams(category);
   if (typeof category !== 'string') throw new Error('category must be a string');
-  if (!category) throw new Error('category is required');
   return await learningService.getAllArticlesOfCategory(category);
 };
 

@@ -6,33 +6,34 @@ const getAllUsers = async () => {
 };
 
 const getUsersByID = async (id) => {
+  commons.checkParams(id);
   return await usersService.getUsersByID(id);
 };
 
 const postUser = async (user) => {
+  commons.checkParams(user);
   const data = commons.getDefinedValues(user);
   return await usersService.savePersonInDatabase(data);
 };
 
 const editUser = async (id, user) => {
+  commons.checkParams(id, user);
   const data = commons.getDefinedValues(user);
   return await usersService.updateInDatabase(id, data);
 };
 
 const deleteUsers = async (id) => {
-  // Saving to local database
+  commons.checkParams(id);
   return await usersService.deleteFromDatabase(id);
 };
 
 const login = async (username, password) => {
+  commons.checkParams(username, password);
   return await usersService.login(username, password);
 };
 
 const signup = async (username, password, firstName, lastName, email) => {
-  if (!username || !password || !firstName || !lastName || !email) {
-    throw new Error('Missing parameters');
-  }
-
+  commons.checkParams(username, password, firstName, lastName, email);
   return await usersService.signup(username, password, firstName, lastName, email);
 };
 
@@ -41,6 +42,7 @@ const getAllSkills = async () => {
 };
 
 const getAllUsersWithSkill = async (skill) => {
+  commons.checkParams(skill);
   return await usersService.getAllUsersWithSkill(skill);
 };
 

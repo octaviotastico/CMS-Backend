@@ -14,8 +14,11 @@ var args = process.argv.slice(2);
 const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424);
 const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
 
+const AGENT_ID = commons.parseParameters(args, '--agent-id', 'AGENT_ID', 'bundlesink');
 const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'localhost');
 const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 4242);
+const EID_LIST = [...commons.parseParameters(args, '--eid-list', 'EID_LIST', ['dtn://a.dtn/bundlesink'])]
+const REAL_TIME_UPDATE = commons.parseParameters(args, '--real-time-update', 'REAL_TIME_UPDATE', true);
 
 
 // Saving them so we can use them later
@@ -29,11 +32,15 @@ global.TCP_PORT = TCP_PORT;
 
 
 // Database Connection
-mongoose.connect('mongodb://localhost:27017/cms-db', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(
+  'mongodb://localhost:27017/cms-db',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+).then(() => {
   console.log('Connected to database');
 });
 
-mongoose.configDtnAndStart({ DTN_HOST, DTN_PORT });
+mongoose.configDtnAndStart({ AGENT_ID, DTN_HOST, DTN_PORT, EID_LIST, REAL_TIME_UPDATE });
+
 
 /////////////////////////////
 ///// HTTP Server setup /////

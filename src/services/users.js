@@ -45,14 +45,14 @@ const signup = async (username, password, firstName, lastName, email) => {
   const passwordSalt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(password, passwordSalt);
 
-  const newUser = new UsersModel({
+  const newUser = await UsersModel.dtCreate({
     username,
     password: passwordHash,
     firstName,
     lastName,
     email,
   });
-  await newUser.save();
+
   return {
     id: newUser._id,
     username: newUser.username,

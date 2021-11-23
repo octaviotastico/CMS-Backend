@@ -14,7 +14,7 @@ const getAllEvents = async (req, res) => {
 /*
  * Returns all the current events.
  */
-const getAllCurrentEvents = async (req, res) => {
+const getAllCurrentEvents = async (_, res) => {
   const response = await calendarDelegate.getAllCurrentEvents();
   res.status(201).json(response);
   return response;

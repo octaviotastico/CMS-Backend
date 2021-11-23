@@ -3,6 +3,7 @@ const commons = require('../commons/functions.js');
 
 
 const getAllEvents = async ({ page, amount }) => {
+  commons.checkParams(page, amount);
   return await calendarService.getAllEvents({ page, amount });
 };
 
@@ -11,65 +12,35 @@ const getAllCurrentEvents = async () => {
 };
 
 const getAllUpcomingEvents = async ({ page, amount }) => {
+  commons.checkParams(page, amount);
   return await calendarService.getAllUpcomingEvents({ page, amount });
 };
 
 const getAllPastEvents = async ({ page, amount }) => {
+  commons.checkParams(page, amount);
   return await calendarService.getAllPastEvents({ page, amount });
 };
 
 const getEventByID = async (id) => {
-  if (typeof id !== 'string' || id === '') {
-    throw new Error('ID is required and must be a string');
-  }
-
+  commons.checkParams(id);
   return await calendarService.getEventByID(id);
 };
 
 const postEvent = async (event) => {
+  commons.checkParams(event);
   const data = commons.getDefinedValues(event);
-
-  // Saving to local database
-  const res = await calendarService.postEvent(data);
-
-  // Sync with DTN Backend
-  // dtnBackendService.updateDTNBackends({
-  //   endpoint: '/calendar/events',
-  //   action: 'POST',
-  //   payload: data,
-  // }, "local-cms");
-
-
-  return res;
+  return await calendarService.postEvent(data);
 };
 
 const editEvent = async (id, event) => {
+  commons.checkParams(id, event);
   const data = commons.getDefinedValues(event);
-
-  // Saving to local database
-  const res = await calendarService.editEvent(id, edit);
-
-  // Sync with DTN Backend
-  // dtnBackendService.updateDTNBackends({
-  //   endpoint: `/calendar/event/${id}`,
-  //   action: 'PATCH',
-  //   payload: data,
-  // }, "local-cms");
-
-  return res;
+  return await calendarService.editEvent(id, data);
 };
 
 const deleteEvent = async (id) => {
-  // Saving to local database
-  const res = await calendarService.deleteEvent(id);
-
-  // Sync with DTN Backend
-  // dtnBackendService.updateDTNBackends({
-  //   endpoint: `/calendar/event/${id}`,
-  //   action: 'DELETE',
-  // }, "local-cms");
-
-  return res;
+  commons.checkParams(id);
+  return await calendarService.deleteEvent(id);
 };
 
 module.exports = {
