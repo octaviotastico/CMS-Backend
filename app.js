@@ -8,17 +8,61 @@ const { Server } = require('socket.io');
 // Local Imports
 const commons = require('./src/commons/functions');
 
-// Parsing parameters (if given)
+//////////////////////
+///// Parameters /////
+//////////////////////
+
 var args = process.argv.slice(2);
 
-const HTTP_PORT = commons.parseParameters(args, '--http-port', 'HTTP_PORT', 2424);
-const TCP_PORT = commons.parseParameters(args, '--tcp-port', 'TCP_PORT', 2525);
+const HTTP_PORT = commons.parseParameters({
+  args: args,
+  argName: '--http-port',
+  envName: 'HTTP_PORT',
+  defaultValue: 2424,
+});
 
-const AGENT_ID = commons.parseParameters(args, '--agent-id', 'AGENT_ID', 'bundlesink');
-const DTN_HOST = commons.parseParameters(args, '--dtn-host', 'DTN_HOST', 'localhost');
-const DTN_PORT = commons.parseParameters(args, '--dtn-port', 'DTN_PORT', 4242);
-const EID_LIST = [...commons.parseParameters(args, '--eid-list', 'EID_LIST', ['dtn://a.dtn/bundlesink'])]
-const REAL_TIME_UPDATE = commons.parseParameters(args, '--real-time-update', 'REAL_TIME_UPDATE', true);
+const TCP_PORT = commons.parseParameters({
+  args: args,
+  argName: '--tcp-port',
+  envName: 'TCP_PORT',
+  defaultValue: 2525,
+});
+
+const AGENT_ID = commons.parseParameters({
+  args: args,
+  argName: '--agent-id',
+  envName: 'AGENT_ID',
+  defaultValue: 'bundlesink',
+});
+
+const DTN_HOST = commons.parseParameters({
+  args: args,
+  argName: '--dtn-host',
+  envName: 'DTN_HOST',
+  defaultValue: 'localhost',
+});
+
+const DTN_PORT = commons.parseParameters({
+  args: args,
+  argName: '--dtn-port',
+  envName: 'DTN_PORT',
+  defaultValue: 4242,
+});
+
+const EID_LIST = commons.parseParameters({
+  args: args,
+  argName: '--eid-list',
+  envName: 'EID_LIST',
+  defaultValue: ['dtn://b.dtn/bundlesink'],
+  list: true,
+});
+
+const REAL_TIME_UPDATE = commons.parseParameters({
+  args: args,
+  argName: '--real-time-update',
+  envName: 'REAL_TIME_UPDATE',
+  defaultValue: true,
+});
 
 
 // Saving them so we can use them later

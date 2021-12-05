@@ -18,7 +18,7 @@ const isValidDate = (d) => {
   return d instanceof Date && !isNaN(d);
 };
 
-const parseParameters = (args, argName, envName, defaultValue) => {
+const parseParameters = ({ args, argName, envName, defaultValue, list }) => {
   // Prioritize the arguments given by terminal.
   if (args.includes(argName)) {
     let argList = [];
@@ -26,7 +26,7 @@ const parseParameters = (args, argName, envName, defaultValue) => {
       if (args[i].includes("--")) break;
       argList.push(args[i]);
     }
-    return argList.length > 1 ? argList : argList[0];
+    return list ? argList : argList[0];
   }
   // If param is not given by terminal, then look fot ir on env variable.
   if (process.env[envName]) {

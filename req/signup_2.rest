@@ -1,0 +1,10 @@
+POST http://localhost:2424/users/signup
+Content-Type: application/json
+
+{
+  "username": "carusoX",
+  "password": "carusoPWD",
+  "firstName": "Uziel",
+  "lastName": "Ludueña",
+  "email": "uziel.luduena@mi.unc.edu.ar"
+}
