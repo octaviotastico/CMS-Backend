@@ -152,33 +152,6 @@ const deleteUsers = async (req, res) => {
   return response;
 }
 
-const login = async (req, res) => {
-  const { username, password } = req.body;
-  const response = await usersDelegate.login(username, password);
-  if (!response) {
-    res.status(401).send('Invalid username or password');
-  } else {
-    res.status(202).json(response);
-  }
-}
-
-const signup = async (req, res) => {
-  const { username, password, firstName, lastName, email } = req.body;
-  const response = await usersDelegate.signup(
-    username,
-    password,
-    firstName,
-    lastName,
-    email
-  );
-  if (!response) {
-    res.status(401).json(response);
-  } else {
-    res.status(202).json(response);
-  }
-  return response;
-}
-
 const getAllSkills = async (req, res) => {
   const response = await usersDelegate.getAllSkills();
   res.status(200).json(response);
@@ -198,8 +171,6 @@ module.exports = {
   postUser,
   editUser,
   deleteUsers,
-  login,
-  signup,
   getAllSkills,
   getAllUsersWithSkill,
 }

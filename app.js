@@ -103,7 +103,7 @@ app.use(cors());
 app.use('/calendar', require('./src/routes/calendar'));
 app.use('/learning', require('./src/routes/learning'));
 app.use('/users', require('./src/routes/users'));
-
+app.use('/auth', require('./src/routes/auth'));
 
 // Listen for HTTP requests on port 2424
 app.listen(HTTP_PORT, () => {
