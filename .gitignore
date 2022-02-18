@@ -111,3 +111,6 @@ yarn.lock
 
 # User Files Storage
 storage
+
+# Package-lock.json
+package-lock.json

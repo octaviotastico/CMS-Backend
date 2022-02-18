@@ -15,7 +15,13 @@ const readEntireFile = (filename) => {
   return '';
 };
 
+const createFolder = (folderName) => {
+  const folderExists = fs.existsSync(folderName);
+  if (!folderExists) fs.mkdirSync(folderName);
+};
+
 module.exports = {
   writeLineToFile,
-  readEntireFile
+  readEntireFile,
+  createFolder
 };

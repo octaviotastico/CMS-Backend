@@ -36,19 +36,18 @@ const postArticle = async (article) => {
   if (article.tags) {
     article.tags = article.tags.split(",");
   }
-  const response = await LearningModel.dtCreate(article);
-  return response;
+  return await LearningModel.dtCreate(article);
 };
 
 const editArticle = async (id, article) => {
   if (article.tags) {
     article.tags = article.tags.split(",");
   }
-  return await LearningModel.findByIdAndUpdate({ _id: id }, article, { new: false });
+  return await LearningModel.dtFindByIdAndUpdate({ _id: id }, article, { new: false });
 };
 
 const deleteArticle = async (id) => {
-  return await LearningModel.findByIdAndRemove(id);
+  return await LearningModel.dtFindByIdAndRemove(id);
 };
 
 module.exports = {

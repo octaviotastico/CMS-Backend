@@ -5,16 +5,16 @@ const handleRequest = async (req, res, methodController, next) => {
   try {
     console.log(`handleRequest - controllerMethodName[${methodController.name}]`);
 
-    // Get bearer token from header
-    const token = req.headers.authorization.split(' ')[1];
+    // // Get bearer token from header
+    // const token = req.headers.authorization.split(' ')[1];
 
-    jwt.verify(token, 'supersecret', (err, decoded) => {
-      if(!err){
-        console.log("ERROR ISSSS", err);
-      } else {
-        console.log("TOKEN ISSS", token);
-      }
-    });
+    // jwt.verify(token, 'supersecret', (err, decoded) => {
+    //   if(!err){
+    //     console.log("ERROR ISSSS", err);
+    //   } else {
+    //     console.log("TOKEN ISSS", token);
+    //   }
+    // });
 
     response = await methodController(req, res, next);
   } catch (ex) {

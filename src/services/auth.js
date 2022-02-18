@@ -4,6 +4,11 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const fs = require('fs');
 
+const isUsernameAvailable = async (username) => {
+  const user = await UsersModel.findOne({ username });
+  return !user;
+};
+
 const login = async (username, password) => {
   // Get user from database
   const user = await UsersModel.findOne({ username });

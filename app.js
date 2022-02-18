@@ -6,50 +6,52 @@ const mongoose = require('delay-tolerant-mongoose');
 const { Server } = require('socket.io');
 
 // Local Imports
-const commons = require('./src/commons/functions');
+const commons = require('./src/commons');
 
-//////////////////////
-///// Parameters /////
-//////////////////////
+
+/// ------------------ ///
+/// --- Parameters --- ///
+/// ------------------ ///
+
 
 var args = process.argv.slice(2);
 
-const HTTP_PORT = commons.parseParameters({
+const HTTP_PORT = commons.functions.parseParameters({
   args: args,
   argName: '--http-port',
   envName: 'HTTP_PORT',
   defaultValue: 2424,
 });
 
-const TCP_PORT = commons.parseParameters({
+const TCP_PORT = commons.functions.parseParameters({
   args: args,
   argName: '--tcp-port',
   envName: 'TCP_PORT',
   defaultValue: 2525,
 });
 
-const AGENT_ID = commons.parseParameters({
+const AGENT_ID = commons.functions.parseParameters({
   args: args,
   argName: '--agent-id',
   envName: 'AGENT_ID',
   defaultValue: 'bundlesink',
 });
 
-const DTN_HOST = commons.parseParameters({
+const DTN_HOST = commons.functions.parseParameters({
   args: args,
   argName: '--dtn-host',
   envName: 'DTN_HOST',
   defaultValue: 'localhost',
 });
 
-const DTN_PORT = commons.parseParameters({
+const DTN_PORT = commons.functions.parseParameters({
   args: args,
   argName: '--dtn-port',
   envName: 'DTN_PORT',
   defaultValue: 4242,
 });
 
-const EID_LIST = commons.parseParameters({
+const EID_LIST = commons.functions.parseParameters({
   args: args,
   argName: '--eid-list',
   envName: 'EID_LIST',
@@ -57,27 +59,43 @@ const EID_LIST = commons.parseParameters({
   list: true,
 });
 
-const REAL_TIME_UPDATE = commons.parseParameters({
+const REAL_TIME_UPDATE = commons.functions.parseParameters({
   args: args,
   argName: '--real-time-update',
   envName: 'REAL_TIME_UPDATE',
   defaultValue: true,
 });
 
+const MONGO_HOST = commons.functions.parseParameters({
+  args: args,
+  argName: '--mongo-host',
+  envName: 'MONGO_HOST',
+  defaultValue: 'localhost',
+});
 
-// Saving them so we can use them later
-global.HTTP_PORT = HTTP_PORT;
-global.TCP_PORT = TCP_PORT;
+const MONGO_PORT = commons.functions.parseParameters({
+  args: args,
+  argName: '--mongo-port',
+  envName: 'MONGO_PORT',
+  defaultValue: 27017,
+});
+
+const MONGO_DB = commons.functions.parseParameters({
+  args: args,
+  argName: '--mongo-db',
+  envName: 'MONGO_DB',
+  defaultValue: 'cms-db',
+});
 
 
-//////////////////////////
-///// Database setup /////
-//////////////////////////
+/// ---------------------- ///
+/// --- Database setup --- ///
+/// ---------------------- ///
 
 
 // Database Connection
 mongoose.connect(
-  'mongodb://localhost:27017/cms-db',
+  `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => {
   console.log('Connected to database');
@@ -86,9 +104,17 @@ mongoose.connect(
 mongoose.configDtnAndStart({ AGENT_ID, DTN_HOST, DTN_PORT, EID_LIST, REAL_TIME_UPDATE });
 
 
-/////////////////////////////
-///// HTTP Server setup /////
-/////////////////////////////
+/// --------------------- ///
+/// --- Storage Setup --- ///
+/// --------------------- ///
+
+
+commons.fileSystem.createFolder('storage/learning');
+
+
+/// ------------------------- ///
+/// --- HTTP Server setup --- ///
+/// ------------------------- ///
 
 
 // App setup
@@ -111,9 +137,9 @@ app.listen(HTTP_PORT, () => {
 });
 
 
-////////////////////////////////////////////////
-///// Socket Server setup (for videocalls) /////
-////////////////////////////////////////////////
+/// --------------------------- ///
+/// --- Socket Server setup --- ///
+/// --------------------------- ///
 
 
 // Socket io server setup.
@@ -128,9 +154,9 @@ io.on("connection", (socket) => {
   // Wellcome message.
   socket.emit("message", "Hello from the CMS backend!");
 
-  // Listen for videocalls.
-  socket.on("videocall", (data) => {
-    console.log("Received videocall:", data);
+  // Listen for messages.
+  socket.on("message", (data) => {
+    console.log("Received message:", data);
   });
 
   // Goodbye message.
