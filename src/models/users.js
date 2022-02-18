@@ -61,10 +61,7 @@ UsersSchema.options.toJSON = {
 UsersSchema.plugin(mongoosePaginate);
 
 // Extra properties for model
-UsersSchema.plugin(timestamps, {
-  createdAt: 'createdAt',
-  updatedAt: 'modifiedAt'
-});
+UsersSchema.plugin(timestamps);
 
 /////////////////////////////////////
 /// ----- Secondary Schemas ----- ///

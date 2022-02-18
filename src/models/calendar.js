@@ -28,9 +28,6 @@ EventSchema.options.toJSON = {
 EventSchema.plugin(mongoosePaginate);
 
 // Extra properties for model
-EventSchema.plugin(timestamps, {
-  createdAt: 'createdAt',
-  updatedAt: 'modifiedAt'
-});
+EventSchema.plugin(timestamps);
 
 module.exports = mongoose.model('event', EventSchema);

@@ -24,10 +24,7 @@ ArticleSchema.options.toJSON = {
 };
 
 // Extra properties for model
-ArticleSchema.plugin(timestamps, {
-  createdAt: 'createdAt',
-  updatedAt: 'modifiedAt'
-});
+ArticleSchema.plugin(timestamps);
 
 const exporting = mongoose.model('articles', ArticleSchema);
 
