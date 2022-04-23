@@ -1,11 +1,11 @@
-const calendarDelegate = require('../delegates/calendar');
+const calendarDelegate = require("../delegates/calendar");
 
 /*
  * Returns all the events no matter the date,
  * with optional pagination.
  */
 const getAllEvents = async (req, res) => {
-  const { page, amount } = req.query;
+  const { page = 0, amount = 100 } = req.query;
   const response = await calendarDelegate.getAllEvents({ page, amount });
   res.status(201).json(response);
   return response;
@@ -14,7 +14,7 @@ const getAllEvents = async (req, res) => {
 /*
  * Returns all the current events.
  */
-const getAllCurrentEvents = async (_, res) => {
+const getAllCurrentEvents = async (req, res) => {
   const response = await calendarDelegate.getAllCurrentEvents();
   res.status(201).json(response);
   return response;
@@ -24,8 +24,11 @@ const getAllCurrentEvents = async (_, res) => {
  * Returns all the upcoming events.
  */
 const getAllUpcomingEvents = async (req, res) => {
-  const { page, amount } = req.query;
-  const response = await calendarDelegate.getAllUpcomingEvents({ page, amount });
+  const { page = 0, amount = 100 } = req.query;
+  const response = await calendarDelegate.getAllUpcomingEvents({
+    page,
+    amount,
+  });
   res.status(201).json(response);
   return response;
 };
@@ -34,7 +37,7 @@ const getAllUpcomingEvents = async (req, res) => {
  * Returns all the past events.
  */
 const getAllPastEvents = async (req, res) => {
-  const { page, amount } = req.query;
+  const { page = 0, amount = 100 } = req.query;
   const response = await calendarDelegate.getAllPastEvents({ page, amount });
   res.status(201).json(response);
   return response;
@@ -58,8 +61,17 @@ const getEventByID = async (req, res) => {
  * Creates a new event in the calendar.
  */
 const postEvent = async (req, res) => {
-  const { title, description, startDate, endDate, expositor, preview, tags } = req.body;
-  const response = await calendarDelegate.postEvent({ title, description, startDate, endDate, expositor, preview, tags });
+  const { title, description, startDate, endDate, expositor, preview, tags } =
+    req.body;
+  const response = await calendarDelegate.postEvent({
+    title,
+    description,
+    startDate,
+    endDate,
+    expositor,
+    preview,
+    tags,
+  });
   res.status(201).json(response);
   return response;
 };
@@ -69,8 +81,17 @@ const postEvent = async (req, res) => {
  */
 const editEvent = async (req, res) => {
   const { id } = req.params;
-  const { title, description, startDate, endDate, expositor, preview, tags } = req.body;
-  const response = await calendarDelegate.editEvent(id, { title, description, startDate, endDate, expositor, preview, tags });
+  const { title, description, startDate, endDate, expositor, preview, tags } =
+    req.body;
+  const response = await calendarDelegate.editEvent(id, {
+    title,
+    description,
+    startDate,
+    endDate,
+    expositor,
+    preview,
+    tags,
+  });
   res.status(201).json(response);
   return response;
 };

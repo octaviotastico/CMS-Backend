@@ -1,5 +1,5 @@
-const commons = require('../commons/functions');
-const learningService = require('../services/learning');
+const commons = require("../commons/functions");
+const learningService = require("../services/learning");
 
 const getAllArticles = async () => {
   return await learningService.getAllArticles();
@@ -37,7 +37,8 @@ const getAllCategories = async () => {
 
 const getAllArticlesOfCategory = async (category) => {
   commons.checkParams(category);
-  if (typeof category !== 'string') throw new Error('category must be a string');
+  if (typeof category !== "string")
+    throw new Error("category must be a string");
   return await learningService.getAllArticlesOfCategory(category);
 };
 

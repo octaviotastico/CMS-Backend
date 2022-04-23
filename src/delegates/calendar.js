@@ -1,9 +1,7 @@
-const calendarService = require('../services/calendar.js');
-const commons = require('../commons/functions.js');
-
+const calendarService = require("../services/calendar.js");
+const commons = require("../commons/functions.js");
 
 const getAllEvents = async ({ page, amount }) => {
-  commons.checkParams(page, amount);
   return await calendarService.getAllEvents({ page, amount });
 };
 
@@ -12,12 +10,10 @@ const getAllCurrentEvents = async () => {
 };
 
 const getAllUpcomingEvents = async ({ page, amount }) => {
-  commons.checkParams(page, amount);
   return await calendarService.getAllUpcomingEvents({ page, amount });
 };
 
 const getAllPastEvents = async ({ page, amount }) => {
-  commons.checkParams(page, amount);
   return await calendarService.getAllPastEvents({ page, amount });
 };
 

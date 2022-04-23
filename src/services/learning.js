@@ -1,9 +1,12 @@
-const LearningModel = require('../models/learning');
+const LearningModel = require("../models/learning");
 
 const getAllArticles = async () => {
-  const articles = await LearningModel.find({}, "title subtitle content author category tags preview");
+  const articles = await LearningModel.find(
+    {},
+    "title subtitle content author category tags preview"
+  );
 
-  return articles.map(article => {
+  return articles.map((article) => {
     article.content = article.content.substring(0, 100);
     return article;
   });
@@ -11,7 +14,7 @@ const getAllArticles = async () => {
 
 const getAllTags = async () => {
   const allTags = await LearningModel.find({}, "tags");
-  const flatTags = allTags.map(elem => elem.tags).flat();
+  const flatTags = allTags.map((elem) => elem.tags).flat();
   return [...new Set(flatTags)];
 };
 
@@ -20,9 +23,12 @@ const getAllCategories = async () => {
 };
 
 const getAllArticlesOfCategory = async (category) => {
-  const articles = await LearningModel.find({ category }, "title subtitle content author category tags preview");
+  const articles = await LearningModel.find(
+    { category },
+    "title subtitle content author category tags preview"
+  );
 
-  return articles.map(article => {
+  return articles.map((article) => {
     article.content = article.content.substring(0, 100);
     return article;
   });
@@ -36,19 +42,20 @@ const postArticle = async (article) => {
   if (article.tags) {
     article.tags = article.tags.split(",");
   }
-  const response = await LearningModel.dtCreate(article);
-  return response;
+  return await LearningModel.dtCreate(article);
 };
 
 const editArticle = async (id, article) => {
   if (article.tags) {
     article.tags = article.tags.split(",");
   }
-  return await LearningModel.findByIdAndUpdate({ _id: id }, article, { new: false });
+  return await LearningModel.dtFindByIdAndUpdate({ _id: id }, article, {
+    new: false,
+  });
 };
 
 const deleteArticle = async (id) => {
-  return await LearningModel.findByIdAndRemove(id);
+  return await LearningModel.dtFindByIdAndRemove(id);
 };
 
 module.exports = {

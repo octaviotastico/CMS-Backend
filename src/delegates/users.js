@@ -1,5 +1,5 @@
-const commons = require('../commons/functions');
-const usersService = require('../services/users');
+const commons = require("../commons/functions");
+const usersService = require("../services/users");
 
 const getAllUsers = async () => {
   return await usersService.getAllUsers();
@@ -27,16 +27,6 @@ const deleteUsers = async (id) => {
   return await usersService.deleteFromDatabase(id);
 };
 
-const login = async (username, password) => {
-  commons.checkParams(username, password);
-  return await usersService.login(username, password);
-};
-
-const signup = async (username, password, firstName, lastName, email) => {
-  commons.checkParams(username, password, firstName, lastName, email);
-  return await usersService.signup(username, password, firstName, lastName, email);
-};
-
 const getAllSkills = async () => {
   return await usersService.getAllSkills();
 };
@@ -52,8 +42,6 @@ module.exports = {
   postUser,
   editUser,
   deleteUsers,
-  login,
-  signup,
   getAllSkills,
   getAllUsersWithSkill,
 };

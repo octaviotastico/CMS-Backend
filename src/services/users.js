@@ -1,5 +1,8 @@
-const UsersModel = require('../models/users');
-const bcrypt = require('bcrypt');
+const UsersModel = require("../models/users");
+// const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcrypt");
+// const path = require("path");
+const fs = require("fs");
 
 const getAllUsers = async () => {
   return await UsersModel.find({});
@@ -21,51 +24,9 @@ const deleteFromDatabase = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
 };
 
-const isUsernameAvailable = async (username) => {
-  const user = await UsersModel.findOne({ username });
-  return !user;
-};
-
-const login = async (username, password) => {
-  const user = await UsersModel.findOne({ username });
-  if (!user) return false;
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) return false;
-
-  return {
-    username: user.username,
-    email: user.email,
-  };
-};
-
-const signup = async (username, password, firstName, lastName, email) => {
-  if (!await isUsernameAvailable(username)) return false;
-
-  const passwordSalt = await bcrypt.genSalt(10);
-  const passwordHash = await bcrypt.hash(password, passwordSalt);
-
-  const newUser = await UsersModel.dtCreate({
-    username,
-    password: passwordHash,
-    firstName,
-    lastName,
-    email,
-  });
-
-  return {
-    id: newUser._id,
-    username: newUser.username,
-    firstName: newUser.firstName,
-    lastName: newUser.lastName,
-    email: newUser.email,
-  };
-};
-
-
 const getAllSkills = async () => {
   const allSkills = await UsersModel.find({}, "skills").populate("skills");
-  const flatSkillNames = allSkills.map(skill => skill.name).flat();
+  const flatSkillNames = allSkills.map((skill) => skill.name).flat();
   return [...new Set(flatSkillNames)];
 };
 
@@ -79,8 +40,6 @@ module.exports = {
   savePersonInDatabase,
   updateInDatabase,
   deleteFromDatabase,
-  login,
-  signup,
   getAllSkills,
   getAllUsersWithSkill,
 };

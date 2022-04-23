@@ -35,7 +35,7 @@ const postArticle = async (req, res) => {
 
 const editArticle = async (req, res) => {
   const { id } = req.params;
-  const preview = req.file.path;
+  const preview = req.file?.path;
   const { category, title, subtitle, author, content, tags } = req.body;
   const response = await learningDelegate.editArticle(id, {
     category,

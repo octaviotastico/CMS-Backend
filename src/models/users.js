@@ -1,6 +1,6 @@
-const mongoose = require('delay-tolerant-mongoose');
-const timestamps = require('mongoose-timestamp');
-const mongoosePaginate = require('mongoose-paginate-v2');
+const mongoose = require("delay-tolerant-mongoose");
+const timestamps = require("mongoose-timestamp");
+const mongoosePaginate = require("mongoose-paginate-v2");
 const Schema = mongoose.Schema;
 
 // People model schema
@@ -27,13 +27,13 @@ const UsersSchema = new Schema({
 
   // Extra Data
   description: { type: String },
-  skills: [{ type: Schema.Types.ObjectId, ref: 'skillInfo' }],
-  experience: [{ type: Schema.Types.ObjectId, ref: 'experienceInfo' }],
-  education: [{ type: Schema.Types.ObjectId, ref: 'educationInfo' }],
-  languages: [{ type: Schema.Types.ObjectId, ref: 'languagueInfo' }],
-  papers: [{ type: Schema.Types.ObjectId, ref: 'paperInfo' }],
-  awards: [{ type: Schema.Types.ObjectId, ref: 'awardInfo' }],
-  projects: [{ type: Schema.Types.ObjectId, ref: 'projectInfo' }],
+  skills: [{ type: Schema.Types.ObjectId, ref: "skillInfo" }],
+  experience: [{ type: Schema.Types.ObjectId, ref: "experienceInfo" }],
+  education: [{ type: Schema.Types.ObjectId, ref: "educationInfo" }],
+  languages: [{ type: Schema.Types.ObjectId, ref: "languagueInfo" }],
+  papers: [{ type: Schema.Types.ObjectId, ref: "paperInfo" }],
+  awards: [{ type: Schema.Types.ObjectId, ref: "awardInfo" }],
+  projects: [{ type: Schema.Types.ObjectId, ref: "projectInfo" }],
   interests: [{ type: String }],
 
   // Maybe for future use xD
@@ -50,21 +50,18 @@ const UsersSchema = new Schema({
 // Extra options for mongoose
 UsersSchema.options.toJSON = {
   transform: function (doc, ret) {
-    ret.id = ret._id // Change _id key to id
-    delete ret._id   // Don't include the _id in JSON
-    delete ret.__v   // Don't include the __v in JSON
-    return ret
-  }
+    ret.id = ret._id; // Change _id key to id
+    delete ret._id; // Don't include the _id in JSON
+    delete ret.__v; // Don't include the __v in JSON
+    return ret;
+  },
 };
 
 // Extra properties for model
 UsersSchema.plugin(mongoosePaginate);
 
 // Extra properties for model
-UsersSchema.plugin(timestamps, {
-  createdAt: 'createdAt',
-  updatedAt: 'modifiedAt'
-});
+UsersSchema.plugin(timestamps);
 
 /////////////////////////////////////
 /// ----- Secondary Schemas ----- ///
@@ -122,13 +119,13 @@ const skillSchema = new Schema({
 });
 
 // The secondary schemas are added to the main schema
-mongoose.model('languagueInfo', languagueSchema);
-mongoose.model('educationInfo', educationSchema);
-mongoose.model('experienceInfo', experienceSchema);
-mongoose.model('paperInfo', paperSchema);
-mongoose.model('awardInfo', awardSchema);
-mongoose.model('projectInfo', prokectSchema);
-mongoose.model('skillInfo', skillSchema);
+mongoose.model("languagueInfo", languagueSchema);
+mongoose.model("educationInfo", educationSchema);
+mongoose.model("experienceInfo", experienceSchema);
+mongoose.model("paperInfo", paperSchema);
+mongoose.model("awardInfo", awardSchema);
+mongoose.model("projectInfo", prokectSchema);
+mongoose.model("skillInfo", skillSchema);
 
 // The main schema is exported
-module.exports = mongoose.model('users', UsersSchema);
+module.exports = mongoose.model("users", UsersSchema);
