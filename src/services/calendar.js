@@ -1,6 +1,7 @@
-const CalendarModel = require("../models/calendar");
+// Local Imports
+import CalendarModel from "../models/calendar.js";
 
-const getAllEvents = async ({ page, amount }) => {
+export const getAllEvents = async ({ page, amount }) => {
   if (page && amount) {
     // Returns events with pagination.
     return await CalendarModel.paginate(
@@ -15,7 +16,7 @@ const getAllEvents = async ({ page, amount }) => {
   return await CalendarModel.find();
 };
 
-const getAllCurrentEvents = async () => {
+export const getAllCurrentEvents = async () => {
   // Returns all current events.
   return await CalendarModel.find({
     startDate: { $lte: new Date() },
@@ -23,7 +24,7 @@ const getAllCurrentEvents = async () => {
   });
 };
 
-const getAllUpcomingEvents = async ({ page, amount }) => {
+export const getAllUpcomingEvents = async ({ page, amount }) => {
   if (page && amount) {
     // Returns events with pagination.
     return await CalendarModel.paginate(
@@ -46,7 +47,7 @@ const getAllUpcomingEvents = async ({ page, amount }) => {
   });
 };
 
-const getAllPastEvents = async ({ page, amount }) => {
+export const getAllPastEvents = async ({ page, amount }) => {
   if (page && amount) {
     // Returns events with pagination.
     return await CalendarModel.paginate(
@@ -69,23 +70,23 @@ const getAllPastEvents = async ({ page, amount }) => {
   });
 };
 
-const getEventByID = async (id) => {
+export const getEventByID = async (id) => {
   return await CalendarModel.findById({ _id: id });
 };
 
-const postEvent = async (event) => {
+export const postEvent = async (event) => {
   return await CalendarModel.dtCreate(event);
 };
 
-const editEvent = async (id, event) => {
+export const editEvent = async (id, event) => {
   return await CalendarModel.dtFindByIdAndUpdate(id, event);
 };
 
-const deleteEvent = async (id) => {
+export const deleteEvent = async (id) => {
   return await CalendarModel.dtFindByIdAndRemove(id);
 };
 
-module.exports = {
+export default {
   getAllEvents,
   getAllCurrentEvents,
   getAllUpcomingEvents,

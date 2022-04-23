@@ -1,5 +1,5 @@
 // Library Imports
-const multer = require("multer");
+import multer from "multer";
 
 // Constants
 const allowedFileExtensions = [
@@ -30,8 +30,4 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const fileStorage = multer({ storage, fileFilter, limits });
-
-module.exports = {
-  fileStorage,
-};
+export const fileStorage = multer({ storage, fileFilter, limits });

@@ -1,7 +1,8 @@
-const mongoose = require("delay-tolerant-mongoose");
-const timestamps = require("mongoose-timestamp");
-const mongoosePaginate = require("mongoose-paginate-v2");
-const Schema = mongoose.Schema;
+// Library Imports
+import mongoose from "delay-tolerant-mongoose";
+import timestamps from "mongoose-timestamp";
+import mongoosePaginate from "mongoose-paginate-v2";
+const { Schema } = mongoose;
 
 // People model schema
 const UsersSchema = new Schema({
@@ -128,4 +129,4 @@ mongoose.model("projectInfo", prokectSchema);
 mongoose.model("skillInfo", skillSchema);
 
 // The main schema is exported
-module.exports = mongoose.model("users", UsersSchema);
+export default mongoose.model("users", UsersSchema);

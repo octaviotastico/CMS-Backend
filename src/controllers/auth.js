@@ -1,6 +1,7 @@
-const authDelegate = require("../delegates/auth");
+// Local Imports
+import authDelegate from "../delegates/auth.js";
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { username, password } = req.body;
   let response;
 
@@ -19,7 +20,7 @@ const login = async (req, res) => {
   }
 };
 
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
   const { username, password, firstName, lastName, email } = req.body;
   let response;
 
@@ -45,7 +46,7 @@ const signup = async (req, res) => {
   return response;
 };
 
-module.exports = {
+export default {
   login,
   signup,
 };

@@ -1,15 +1,18 @@
-const UsersModel = require("../models/users");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const path = require("path");
-const fs = require("fs");
+// Library Imports
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import path from "path";
+import fs from "fs";
 
-const isUsernameAvailable = async (username) => {
+// Local Imports
+import UsersModel from "../models/users.js";
+
+export const isUsernameAvailable = async (username) => {
   const user = await UsersModel.findOne({ username });
   return !user;
 };
 
-const login = async (username, password) => {
+export const login = async (username, password) => {
   // Get user from database
   const user = await UsersModel.findOne({ username });
 
@@ -54,7 +57,8 @@ const signup = async (username, password, firstName, lastName, email) => {
   };
 };
 
-module.exports = {
+export default {
+  isUsernameAvailable,
   login,
   signup,
 };

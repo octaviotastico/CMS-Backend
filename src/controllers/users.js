@@ -1,20 +1,23 @@
-const usersDelegate = require("../delegates/users");
-const bcrypt = require("bcrypt");
+// Library Imports
+import bcrypt from "bcrypt";
 
-const getAllUsers = async (req, res) => {
+// Local Imports
+import usersDelegate from "../delegates/users.js";
+
+export const getAllUsers = async (req, res) => {
   const response = await usersDelegate.getAllUsers();
   res.status(200).json(response);
   return response;
 };
 
-const getUsersByID = async (req, res) => {
+export const getUsersByID = async (req, res) => {
   const { id } = req.params;
   const response = await usersDelegate.getUsersByID(id);
   res.status(200).json(response);
   return response;
 };
 
-const postUser = async (req, res) => {
+export const postUser = async (req, res) => {
   const {
     // Basic Info
     username,
@@ -81,7 +84,7 @@ const postUser = async (req, res) => {
   return response;
 };
 
-const editUser = async (req, res) => {
+export const editUser = async (req, res) => {
   const { id } = req.params;
   const {
     username,
@@ -138,7 +141,7 @@ const editUser = async (req, res) => {
   return response;
 };
 
-const deleteUsers = async (req, res) => {
+export const deleteUsers = async (req, res) => {
   const { id } = req.params;
   const response = await usersDelegate.deleteUsers(id);
   if (!response) {
@@ -149,20 +152,20 @@ const deleteUsers = async (req, res) => {
   return response;
 };
 
-const getAllSkills = async (req, res) => {
+export const getAllSkills = async (req, res) => {
   const response = await usersDelegate.getAllSkills();
   res.status(200).json(response);
   return response;
 };
 
-const getAllUsersWithSkill = async (req, res) => {
+export const getAllUsersWithSkill = async (req, res) => {
   const { skill } = req.params;
   const response = await usersDelegate.getAllUsersWithSkill(skill);
   res.status(200).json(response);
   return response;
 };
 
-module.exports = {
+export default {
   getAllUsers,
   getUsersByID,
   postUser,

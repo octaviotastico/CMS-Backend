@@ -1,6 +1,6 @@
-var jwt = require("jsonwebtoken");
+// import jwt from "jsonwebtoken";
 
-const handleRequest = async (req, res, methodController, next) => {
+export const handleRequest = async (req, res, methodController, next) => {
   let response = null;
   try {
     console.log(
@@ -28,6 +28,4 @@ const handleRequest = async (req, res, methodController, next) => {
   }
 };
 
-module.exports = {
-  handleRequest,
-};
+export default handleRequest;

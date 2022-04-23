@@ -1,12 +1,13 @@
-const learningDelegate = require("../delegates/learning");
+// Local Imports
+import learningDelegate from "../delegates/learning.js";
 
-const getAllArticles = async (req, res) => {
+export const getAllArticles = async (req, res) => {
   const response = await learningDelegate.getAllArticles();
   res.status(200).json(response);
   return response;
 };
 
-const getArticleByID = async (req, res) => {
+export const getArticleByID = async (req, res) => {
   const { id } = req.params;
   const response = await learningDelegate.getArticleByID(id);
   if (!response) {
@@ -17,7 +18,7 @@ const getArticleByID = async (req, res) => {
   return response;
 };
 
-const postArticle = async (req, res) => {
+export const postArticle = async (req, res) => {
   const { path: preview } = req.file || {};
   const { category, title, subtitle, author, content, tags } = req.body;
   const response = await learningDelegate.postArticle({
@@ -33,7 +34,7 @@ const postArticle = async (req, res) => {
   return response;
 };
 
-const editArticle = async (req, res) => {
+export const editArticle = async (req, res) => {
   const { id } = req.params;
   const preview = req.file?.path;
   const { category, title, subtitle, author, content, tags } = req.body;
@@ -50,7 +51,7 @@ const editArticle = async (req, res) => {
   return response;
 };
 
-const deleteArticle = async (req, res) => {
+export const deleteArticle = async (req, res) => {
   const { id } = req.params;
   const response = await learningDelegate.deleteArticle(id);
   if (!response) {
@@ -61,26 +62,26 @@ const deleteArticle = async (req, res) => {
   return response;
 };
 
-const getAllTags = async (_, res) => {
+export const getAllTags = async (_, res) => {
   const response = await learningDelegate.getAllTags();
   res.status(200).json(response);
   return response;
 };
 
-const getAllCategories = async (req, res) => {
+export const getAllCategories = async (req, res) => {
   const response = await learningDelegate.getAllCategories();
   res.status(200).json(response);
   return response;
 };
 
-const getAllArticlesOfCategory = async (req, res) => {
+export const getAllArticlesOfCategory = async (req, res) => {
   const { category } = req.params;
   const response = await learningDelegate.getAllArticlesOfCategory(category);
   res.status(200).json(response);
   return response;
 };
 
-module.exports = {
+export default {
   getAllArticles,
   getArticleByID,
   postArticle,

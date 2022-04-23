@@ -1,13 +1,20 @@
-const authService = require("../services/auth");
-const commons = require("../commons/functions");
+// Local Imports
+import authService from "../services/auth.js";
+import { checkParams } from "../commons/functions.js";
 
-const login = async (username, password) => {
-  commons.checkParams(username, password);
+export const login = async (username, password) => {
+  checkParams(username, password);
   return await authService.login(username, password);
 };
 
-const signup = async (username, password, firstName, lastName, email) => {
-  commons.checkParams(username, password, firstName, lastName, email);
+export const signup = async (
+  username,
+  password,
+  firstName,
+  lastName,
+  email
+) => {
+  checkParams(username, password, firstName, lastName, email);
   return await authService.signup(
     username,
     password,
@@ -17,7 +24,7 @@ const signup = async (username, password, firstName, lastName, email) => {
   );
 };
 
-module.exports = {
+export default {
   login,
   signup,
 };

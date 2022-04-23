@@ -1,7 +1,8 @@
-const mongoose = require("delay-tolerant-mongoose");
-const timestamps = require("mongoose-timestamp");
-const mongoosePaginate = require("mongoose-paginate-v2");
-const Schema = mongoose.Schema;
+// Library Imports
+import mongoose from "delay-tolerant-mongoose";
+import timestamps from "mongoose-timestamp";
+import mongoosePaginate from "mongoose-paginate-v2";
+const { Schema } = mongoose;
 
 // Calendar model schema
 const EventSchema = new Schema({
@@ -30,4 +31,4 @@ EventSchema.plugin(mongoosePaginate);
 // Extra properties for model
 EventSchema.plugin(timestamps);
 
-module.exports = mongoose.model("event", EventSchema);
+export default mongoose.model("events", EventSchema);

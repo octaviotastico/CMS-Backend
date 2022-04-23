@@ -1,6 +1,7 @@
-const mongoose = require("delay-tolerant-mongoose");
-const timestamps = require("mongoose-timestamp");
-const Schema = mongoose.Schema;
+// Library Imports
+import mongoose from "delay-tolerant-mongoose";
+import timestamps from "mongoose-timestamp";
+const { Schema } = mongoose;
 
 // Learning model schema
 const ArticleSchema = new Schema({
@@ -26,6 +27,4 @@ ArticleSchema.options.toJSON = {
 // Extra properties for model
 ArticleSchema.plugin(timestamps);
 
-const exporting = mongoose.model("articles", ArticleSchema);
-
-module.exports = exporting;
+export default mongoose.model("articles", ArticleSchema);

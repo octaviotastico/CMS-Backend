@@ -1,13 +1,17 @@
 // Library Imports
-const cors = require("cors");
-const http = require("http");
-const express = require("express");
-const mongoose = require("delay-tolerant-mongoose");
-const { Server } = require("socket.io");
+import cors from "cors";
+import http from "http";
+import express from "express";
+import mongoose from "delay-tolerant-mongoose";
+import { Server } from "socket.io";
 
 // Local Imports
-const fileSystem = require("./src/commons/fileSystem");
-const functions = require("./src/commons/functions");
+import { createDirectory } from "./src/commons/fileSystem.js";
+import { parseParameters } from "./src/commons/functions.js";
+import calendarRoute from "./src/routes/calendar.js";
+import learningRoute from "./src/routes/learning.js";
+import usersRoute from "./src/routes/users.js";
+import authRoute from "./src/routes/auth.js";
 
 /// ------------------ ///
 /// --- Parameters --- ///
@@ -15,42 +19,42 @@ const functions = require("./src/commons/functions");
 
 var args = process.argv.slice(2);
 
-const HTTP_PORT = functions.parseParameters({
+const HTTP_PORT = parseParameters({
   args: args,
   argName: "--http-port",
   envName: "HTTP_PORT",
   defaultValue: 2424,
 });
 
-const TCP_PORT = functions.parseParameters({
+const TCP_PORT = parseParameters({
   args: args,
   argName: "--tcp-port",
   envName: "TCP_PORT",
   defaultValue: 2525,
 });
 
-const AGENT_ID = functions.parseParameters({
+const AGENT_ID = parseParameters({
   args: args,
   argName: "--agent-id",
   envName: "AGENT_ID",
   defaultValue: "bundlesink",
 });
 
-const DTN_HOST = functions.parseParameters({
+const DTN_HOST = parseParameters({
   args: args,
   argName: "--dtn-host",
   envName: "DTN_HOST",
   defaultValue: "localhost",
 });
 
-const DTN_PORT = functions.parseParameters({
+const DTN_PORT = parseParameters({
   args: args,
   argName: "--dtn-port",
   envName: "DTN_PORT",
   defaultValue: 4242,
 });
 
-const EID_LIST = functions.parseParameters({
+const EID_LIST = parseParameters({
   args: args,
   argName: "--eid-list",
   envName: "EID_LIST",
@@ -58,28 +62,28 @@ const EID_LIST = functions.parseParameters({
   list: true,
 });
 
-const REAL_TIME_UPDATE = functions.parseParameters({
+const REAL_TIME_UPDATE = parseParameters({
   args: args,
   argName: "--real-time-update",
   envName: "REAL_TIME_UPDATE",
   defaultValue: true,
 });
 
-const MONGO_HOST = functions.parseParameters({
+const MONGO_HOST = parseParameters({
   args: args,
   argName: "--mongo-host",
   envName: "MONGO_HOST",
   defaultValue: "localhost",
 });
 
-const MONGO_PORT = functions.parseParameters({
+const MONGO_PORT = parseParameters({
   args: args,
   argName: "--mongo-port",
   envName: "MONGO_PORT",
   defaultValue: 27017,
 });
 
-const MONGO_DB = functions.parseParameters({
+const MONGO_DB = parseParameters({
   args: args,
   argName: "--mongo-db",
   envName: "MONGO_DB",
@@ -120,7 +124,8 @@ mongoose.configDtnAndStart({
 /// --- Storage Setup --- ///
 /// --------------------- ///
 
-fileSystem.createFolder("storage/learning");
+createDirectory("./storage/");
+createDirectory("./storage/learning");
 
 /// ------------------------- ///
 /// --- HTTP Server setup --- ///
@@ -128,18 +133,17 @@ fileSystem.createFolder("storage/learning");
 
 // App setup
 const app = express();
-fileSystem.createDirectory("./storage/");
-fileSystem.createDirectory("./storage/learning");
+
 app.use("/storage", express.static("storage")); // Here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use("/calendar", require("./src/routes/calendar"));
-app.use("/learning", require("./src/routes/learning"));
-app.use("/users", require("./src/routes/users"));
-app.use("/auth", require("./src/routes/auth"));
+app.use("/calendar", calendarRoute);
+app.use("/learning", learningRoute);
+app.use("/users", usersRoute);
+app.use("/auth", authRoute);
 
 // Listen for HTTP requests on port 2424
 app.listen(HTTP_PORT, () => {

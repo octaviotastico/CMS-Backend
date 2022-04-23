@@ -1,10 +1,11 @@
-const calendarDelegate = require("../delegates/calendar");
+// Local Imports
+import calendarDelegate from "../delegates/calendar.js";
 
 /*
  * Returns all the events no matter the date,
  * with optional pagination.
  */
-const getAllEvents = async (req, res) => {
+export const getAllEvents = async (req, res) => {
   const { page = 0, amount = 100 } = req.query;
   const response = await calendarDelegate.getAllEvents({ page, amount });
   res.status(201).json(response);
@@ -14,7 +15,7 @@ const getAllEvents = async (req, res) => {
 /*
  * Returns all the current events.
  */
-const getAllCurrentEvents = async (req, res) => {
+export const getAllCurrentEvents = async (req, res) => {
   const response = await calendarDelegate.getAllCurrentEvents();
   res.status(201).json(response);
   return response;
@@ -23,7 +24,7 @@ const getAllCurrentEvents = async (req, res) => {
 /*
  * Returns all the upcoming events.
  */
-const getAllUpcomingEvents = async (req, res) => {
+export const getAllUpcomingEvents = async (req, res) => {
   const { page = 0, amount = 100 } = req.query;
   const response = await calendarDelegate.getAllUpcomingEvents({
     page,
@@ -36,7 +37,7 @@ const getAllUpcomingEvents = async (req, res) => {
 /*
  * Returns all the past events.
  */
-const getAllPastEvents = async (req, res) => {
+export const getAllPastEvents = async (req, res) => {
   const { page = 0, amount = 100 } = req.query;
   const response = await calendarDelegate.getAllPastEvents({ page, amount });
   res.status(201).json(response);
@@ -46,7 +47,7 @@ const getAllPastEvents = async (req, res) => {
 /*
  * Returns all the event info by ID.
  */
-const getEventByID = async (req, res) => {
+export const getEventByID = async (req, res) => {
   const { id } = req.params;
   const response = await calendarDelegate.getEventByID(id);
   if (!response) {
@@ -60,7 +61,7 @@ const getEventByID = async (req, res) => {
 /*
  * Creates a new event in the calendar.
  */
-const postEvent = async (req, res) => {
+export const postEvent = async (req, res) => {
   const { title, description, startDate, endDate, expositor, preview, tags } =
     req.body;
   const response = await calendarDelegate.postEvent({
@@ -79,7 +80,7 @@ const postEvent = async (req, res) => {
 /*
  * Edits an event.
  */
-const editEvent = async (req, res) => {
+export const editEvent = async (req, res) => {
   const { id } = req.params;
   const { title, description, startDate, endDate, expositor, preview, tags } =
     req.body;
@@ -99,7 +100,7 @@ const editEvent = async (req, res) => {
 /*
  * Deletes an event.
  */
-const deleteEvent = async (req, res) => {
+export const deleteEvent = async (req, res) => {
   const { id } = req.params;
   const response = await calendarDelegate.deleteEvent(id);
   if (!response) {
@@ -110,7 +111,7 @@ const deleteEvent = async (req, res) => {
   return response;
 };
 
-module.exports = {
+export default {
   getAllEvents,
   getAllCurrentEvents,
   getAllUpcomingEvents,

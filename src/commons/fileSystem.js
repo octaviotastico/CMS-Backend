@@ -1,14 +1,15 @@
-const fs = require("fs");
-const os = require("os");
+// Library Imports
+import fs from "fs";
+import os from "os";
 
-const writeLineToFile = (text, filename) => {
+export const writeLineToFile = (text, filename) => {
   filename = `./data/${filename}`;
   fs.appendFileSync(filename, `${text}${os.EOL}`, (err) => {
     if (err) return console.error(err);
   });
 };
 
-const readEntireFile = (filename) => {
+export const readEntireFile = (filename) => {
   filename = `./data/${filename}`;
   const fileExists = fs.existsSync(filename);
   if (fileExists) return fs.readFileSync(filename, "utf8");
@@ -16,7 +17,7 @@ const readEntireFile = (filename) => {
 };
 
 // Check if a directory exists
-const directoryExists = (path) => {
+export const directoryExists = (path) => {
   try {
     return fs.statSync(path).isDirectory();
   } catch (err) {
@@ -25,15 +26,8 @@ const directoryExists = (path) => {
 };
 
 // Create the directory if it doesn't exist
-const createDirectory = (path) => {
+export const createDirectory = (path) => {
   if (!directoryExists(path)) {
     fs.mkdirSync(path);
   }
-};
-
-module.exports = {
-  writeLineToFile,
-  readEntireFile,
-  directoryExists,
-  createDirectory,
 };

@@ -1,6 +1,7 @@
 {
   "name": "cms-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "A backend for a CMS that used DTNs to transfer information.",
   "main": "app.js",
   "scripts": {

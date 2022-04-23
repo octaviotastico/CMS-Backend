@@ -1,24 +1,30 @@
-const sleep = (seconds) => {
+export const sleep = (seconds) => {
   return new Promise((resolve) => setTimeout(resolve, seconds));
 };
 
-const checkUndefined = (obj, name) => {
+export const checkUndefined = (obj, name) => {
   if (typeof obj === "undefined") {
     throw new Error(`${name} must not be left undefined`);
   }
 };
 
-const checkParams = (...params) => {
+export const checkParams = (...params) => {
   if (params.some((elem) => elem === undefined)) {
     throw new Error(`Missing parameter at index ${params.indexOf(undefined)}`);
   }
 };
 
-const isValidDate = (d) => {
+export const isValidDate = (d) => {
   return d instanceof Date && !isNaN(d);
 };
 
-const parseParameters = ({ args, argName, envName, defaultValue, list }) => {
+export const parseParameters = ({
+  args,
+  argName,
+  envName,
+  defaultValue,
+  list,
+}) => {
   // Prioritize the arguments given by terminal.
   if (args.includes(argName)) {
     let argList = [];
@@ -36,13 +42,13 @@ const parseParameters = ({ args, argName, envName, defaultValue, list }) => {
   return defaultValue;
 };
 
-const checkRequiredFields = (obj, requiredFields) => {
+export const checkRequiredFields = (obj, requiredFields) => {
   requiredFields.forEach((field) => {
     checkUndefined(obj[field], field);
   });
 };
 
-const checkEmptyFields = (obj, emptyFields) => {
+export const checkEmptyFields = (obj, emptyFields) => {
   emptyFields.forEach((field) => {
     if (typeof obj[field] !== "undefined") {
       if (obj[field] === null || obj[field] === "") {
@@ -52,7 +58,7 @@ const checkEmptyFields = (obj, emptyFields) => {
   });
 };
 
-const checkFieldTypes = (obj, fieldTypes) => {
+export const checkFieldTypes = (obj, fieldTypes) => {
   Object.keys(fieldTypes).forEach((field) => {
     if (typeof obj[field] !== "undefined") {
       if (typeof obj[field] !== fieldTypes[field]) {
@@ -62,7 +68,7 @@ const checkFieldTypes = (obj, fieldTypes) => {
   });
 };
 
-const getNonUndefinedFields = (obj, fields) => {
+export const getNonUndefinedFields = (obj, fields) => {
   const nonUndefinedFields = {};
   fields.forEach((field) => {
     if (typeof obj[field] !== "undefined") {
@@ -72,7 +78,7 @@ const getNonUndefinedFields = (obj, fields) => {
   return nonUndefinedFields;
 };
 
-const getDefinedValues = (obj) => {
+export const getDefinedValues = (obj) => {
   const newObj = {};
   Object.keys(obj).forEach((key) => {
     if (typeof obj[key] !== "undefined") {
@@ -80,17 +86,4 @@ const getDefinedValues = (obj) => {
     }
   });
   return newObj;
-};
-
-module.exports = {
-  sleep,
-  checkUndefined,
-  checkParams,
-  isValidDate,
-  parseParameters,
-  checkRequiredFields,
-  checkEmptyFields,
-  checkFieldTypes,
-  getNonUndefinedFields,
-  getDefinedValues,
 };

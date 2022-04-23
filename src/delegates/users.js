@@ -1,42 +1,43 @@
-const commons = require("../commons/functions");
-const usersService = require("../services/users");
+// Local Imports
+import usersService from "../services/users.js";
+import { checkParams, getDefinedValues } from "../commons/functions.js";
 
-const getAllUsers = async () => {
+export const getAllUsers = async () => {
   return await usersService.getAllUsers();
 };
 
-const getUsersByID = async (id) => {
-  commons.checkParams(id);
+export const getUsersByID = async (id) => {
+  checkParams(id);
   return await usersService.getUsersByID(id);
 };
 
-const postUser = async (user) => {
-  commons.checkParams(user);
-  const data = commons.getDefinedValues(user);
+export const postUser = async (user) => {
+  checkParams(user);
+  const data = getDefinedValues(user);
   return await usersService.savePersonInDatabase(data);
 };
 
-const editUser = async (id, user) => {
-  commons.checkParams(id, user);
-  const data = commons.getDefinedValues(user);
+export const editUser = async (id, user) => {
+  checkParams(id, user);
+  const data = getDefinedValues(user);
   return await usersService.updateInDatabase(id, data);
 };
 
-const deleteUsers = async (id) => {
-  commons.checkParams(id);
+export const deleteUsers = async (id) => {
+  checkParams(id);
   return await usersService.deleteFromDatabase(id);
 };
 
-const getAllSkills = async () => {
+export const getAllSkills = async () => {
   return await usersService.getAllSkills();
 };
 
-const getAllUsersWithSkill = async (skill) => {
-  commons.checkParams(skill);
+export const getAllUsersWithSkill = async (skill) => {
+  checkParams(skill);
   return await usersService.getAllUsersWithSkill(skill);
 };
 
-module.exports = {
+export default {
   getAllUsers,
   getUsersByID,
   postUser,

@@ -1,45 +1,46 @@
-const calendarService = require("../services/calendar.js");
-const commons = require("../commons/functions.js");
+// Local Imports
+import calendarService from "../services/calendar.js";
+import { checkParams, getDefinedValues } from "../commons/functions.js";
 
-const getAllEvents = async ({ page, amount }) => {
+export const getAllEvents = async ({ page, amount }) => {
   return await calendarService.getAllEvents({ page, amount });
 };
 
-const getAllCurrentEvents = async () => {
+export const getAllCurrentEvents = async () => {
   return await calendarService.getAllCurrentEvents();
 };
 
-const getAllUpcomingEvents = async ({ page, amount }) => {
+export const getAllUpcomingEvents = async ({ page, amount }) => {
   return await calendarService.getAllUpcomingEvents({ page, amount });
 };
 
-const getAllPastEvents = async ({ page, amount }) => {
+export const getAllPastEvents = async ({ page, amount }) => {
   return await calendarService.getAllPastEvents({ page, amount });
 };
 
-const getEventByID = async (id) => {
-  commons.checkParams(id);
+export const getEventByID = async (id) => {
+  checkParams(id);
   return await calendarService.getEventByID(id);
 };
 
-const postEvent = async (event) => {
-  commons.checkParams(event);
-  const data = commons.getDefinedValues(event);
+export const postEvent = async (event) => {
+  checkParams(event);
+  const data = getDefinedValues(event);
   return await calendarService.postEvent(data);
 };
 
-const editEvent = async (id, event) => {
-  commons.checkParams(id, event);
-  const data = commons.getDefinedValues(event);
+export const editEvent = async (id, event) => {
+  checkParams(id, event);
+  const data = getDefinedValues(event);
   return await calendarService.editEvent(id, data);
 };
 
-const deleteEvent = async (id) => {
-  commons.checkParams(id);
+export const deleteEvent = async (id) => {
+  checkParams(id);
   return await calendarService.deleteEvent(id);
 };
 
-module.exports = {
+export default {
   getAllEvents,
   getAllCurrentEvents,
   getAllUpcomingEvents,
