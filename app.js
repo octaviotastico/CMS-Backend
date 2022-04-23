@@ -90,6 +90,13 @@ const MONGO_DB = parseParameters({
   defaultValue: "cms-db",
 });
 
+const MERGE_STRATEGY = parseParameters({
+  args: args,
+  argName: "--merge-strategy",
+  envName: "MERGE_STRATEGY",
+  defaultValue: "threeWayMerge",
+});
+
 /// ---------------------- ///
 /// --- Database setup --- ///
 /// ---------------------- ///
@@ -110,14 +117,7 @@ mongoose.configDtnAndStart({
   DTN_PORT,
   EID_LIST,
   REAL_TIME_UPDATE,
-});
-
-mongoose.configDtnAndStart({
-  AGENT_ID,
-  DTN_HOST,
-  DTN_PORT,
-  EID_LIST,
-  REAL_TIME_UPDATE,
+  MERGE_STRATEGY,
 });
 
 /// --------------------- ///
