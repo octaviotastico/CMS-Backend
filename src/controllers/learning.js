@@ -1,4 +1,4 @@
-const learningDelegate = require('../delegates/learning');
+const learningDelegate = require("../delegates/learning");
 
 const getAllArticles = async (req, res) => {
   const response = await learningDelegate.getAllArticles();
@@ -18,9 +18,17 @@ const getArticleByID = async (req, res) => {
 };
 
 const postArticle = async (req, res) => {
-  const { path: preview } = req.file;
+  const { path: preview } = req.file || {};
   const { category, title, subtitle, author, content, tags } = req.body;
-  const response = await learningDelegate.postArticle({ category, title, subtitle, author, preview, content, tags });
+  const response = await learningDelegate.postArticle({
+    category,
+    title,
+    subtitle,
+    author,
+    preview,
+    content,
+    tags,
+  });
   res.status(201).json(response);
   return response;
 };
@@ -29,7 +37,15 @@ const editArticle = async (req, res) => {
   const { id } = req.params;
   const preview = req.file.path;
   const { category, title, subtitle, author, content, tags } = req.body;
-  const response = await learningDelegate.editArticle(id, { category, title, subtitle, author, preview, content, tags });
+  const response = await learningDelegate.editArticle(id, {
+    category,
+    title,
+    subtitle,
+    author,
+    preview,
+    content,
+    tags,
+  });
   res.status(202).json(response);
   return response;
 };
