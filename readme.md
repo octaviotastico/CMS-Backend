@@ -8,7 +8,7 @@ What do I need to run this project?
 
 - [Node](https://nodejs.org/en/)
 - [mongodb](https://docs.mongodb.com/guides/server/install/)
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable) (it's necessary)
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable) (if you want to)
 
 ## Running the project
 
@@ -17,11 +17,19 @@ To install the dependencies:
 ```
 yarn
 ```
+or
+```
+npm i
+```
 
 After dependencies are installed:
 
 ```
 yarn start
+```
+or
+```
+npm start
 ```
 
 And the project should start, but only for "local" mode.
