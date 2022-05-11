@@ -62,13 +62,6 @@ const EID_LIST = parseParameters({
   list: true,
 });
 
-const REAL_TIME_UPDATE = parseParameters({
-  args: args,
-  argName: "--real-time-update",
-  envName: "REAL_TIME_UPDATE",
-  defaultValue: true,
-});
-
 const MONGO_HOST = parseParameters({
   args: args,
   argName: "--mongo-host",
@@ -116,7 +109,6 @@ mongoose.configDtnAndStart({
   DTN_HOST,
   DTN_PORT,
   EID_LIST,
-  REAL_TIME_UPDATE,
   MERGE_STRATEGY,
 });
 
