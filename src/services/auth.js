@@ -15,6 +15,7 @@ export const isUsernameAvailable = async (username) => {
 export const login = async (username, password) => {
   // Get user from database
   const user = await UsersModel.findOne({ username });
+  const { firstName, lastName, email } = user;
 
   // Check if user exists
   if (!user) return false;
@@ -27,9 +28,14 @@ export const login = async (username, password) => {
   const jwtPrivateKey = path.resolve("") + "/keys/private_key.pem";
 
   // Data for JWT
-  const payload = { user: username };
-  const cert = fs.readFileSync(jwtPrivateKey);
+  let cert;
+  const payload = { username, firstName, lastName, email };
   const config = { expiresIn: "10h", algorithm: "RS256" };
+  try {
+    cert = fs.readFileSync(jwtPrivateKey);
+  } catch {
+    cert = "null";
+  }
 
   return { user, token: jwt.sign(payload, cert, config) };
 };
