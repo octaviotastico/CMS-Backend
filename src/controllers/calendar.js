@@ -1,7 +1,15 @@
 // Local Imports
 import calendarDelegate from "../delegates/calendar.js";
 
-/*
+const calculateEndDate = (startDate, duration) => {
+  const endDate = new Date(startDate);
+  const [hours, minutes] = duration.split(":");
+  endDate.setHours(endDate.getHours() + parseInt(hours));
+  endDate.setMinutes(endDate.getMinutes() + parseInt(minutes));
+  return endDate;
+};
+
+/**
  * Returns all the events no matter the date,
  * with optional pagination.
  */
@@ -12,7 +20,7 @@ export const getAllEvents = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Returns all the current events.
  */
 export const getAllCurrentEvents = async (req, res) => {
@@ -21,7 +29,7 @@ export const getAllCurrentEvents = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Returns all the upcoming events.
  */
 export const getAllUpcomingEvents = async (req, res) => {
@@ -34,7 +42,7 @@ export const getAllUpcomingEvents = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Returns all the past events.
  */
 export const getAllPastEvents = async (req, res) => {
@@ -44,7 +52,7 @@ export const getAllPastEvents = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Returns all the event info by ID.
  */
 export const getEventByID = async (req, res) => {
@@ -58,18 +66,19 @@ export const getEventByID = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Creates a new event in the calendar.
  */
 export const postEvent = async (req, res) => {
-  const { title, description, startDate, endDate, expositor, preview, tags } =
-    req.body;
+  const { title, description, startDate, duration, preview, tags } = req.body;
+  const { username } = req.decodedToken;
   const response = await calendarDelegate.postEvent({
     title,
     description,
     startDate,
-    endDate,
-    expositor,
+    duration,
+    endDate: calculateEndDate(startDate, duration),
+    expositor: username,
     preview,
     tags,
   });
@@ -77,19 +86,20 @@ export const postEvent = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Edits an event.
  */
 export const editEvent = async (req, res) => {
   const { id } = req.params;
-  const { title, description, startDate, endDate, expositor, preview, tags } =
-    req.body;
+  const { title, description, startDate, duration, preview, tags } = req.body;
+  const { username } = req.decodedToken;
   const response = await calendarDelegate.editEvent(id, {
     title,
     description,
     startDate,
-    endDate,
-    expositor,
+    duration,
+    endDate: calculateEndDate(startDate, duration),
+    expositor: username,
     preview,
     tags,
   });
@@ -97,7 +107,7 @@ export const editEvent = async (req, res) => {
   return response;
 };
 
-/*
+/**
  * Deletes an event.
  */
 export const deleteEvent = async (req, res) => {

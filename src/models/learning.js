@@ -8,10 +8,10 @@ const ArticleSchema = new Schema({
   title: { type: String, required: true },
   subtitle: { type: String },
   content: { type: String, required: true },
-  preview: { type: String },
   category: { type: String, required: true },
   author: { type: String, required: true },
   tags: [{ type: String, required: true }],
+  preview: { type: String },
 });
 
 // Extra options for mongoose
