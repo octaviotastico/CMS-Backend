@@ -20,7 +20,8 @@ export const getArticleByID = async (req, res) => {
 
 export const postArticle = async (req, res) => {
   const { path: preview } = req.file || {};
-  const { category, title, subtitle, author, content, tags } = req.body;
+  const { username: author } = req.decodedToken;
+  const { category, title, subtitle, content, tags } = req.body;
   const response = await learningDelegate.postArticle({
     category,
     title,

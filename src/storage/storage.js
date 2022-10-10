@@ -2,13 +2,7 @@
 import multer from "multer";
 
 // Constants
-const allowedFileExtensions = [
-  "image/jpg",
-  "image/jpeg",
-  "image/png",
-  "image/gif",
-  "image/bmp",
-];
+const allowedFileExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
 const limits = { fileSize: 1024 * 1024 * 10 }; // 10MB file size limit
 
 // Disk Storage
@@ -17,16 +11,16 @@ const learningStorage = multer.diskStorage({
     cb(null, "storage/learning/");
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+    const filename = new Date().toISOString().replace(/:/g, "-") + file.originalname;
+    cb(null, filename);
   },
 });
 
 const userStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "storage/users/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+  destination: "storage/users/",
+  filename: (req, file, cb) => {
+    const filename = new Date().toISOString().replace(/:/g, "-") + file.originalname;
+    cb(null, filename);
   },
 });
 
@@ -39,5 +33,5 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-export const learningFileStorage = multer({ learningStorage, fileFilter, limits });
-export const usersFileStorage = multer({ userStorage, fileFilter, limits });
+export const learningFileStorage = multer({ storage: learningStorage, fileFilter, limits });
+export const usersFileStorage = multer({ storage: userStorage, fileFilter, limits });

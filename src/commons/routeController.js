@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const handleRequest = async (req, res, methodController, next) => {
   let response = null;
   try {
-    console.log(`handleRequest - controllerMethodName[${methodController.name}]`);
+    console.info(`handleRequest - controllerMethodName[${methodController.name}]`);
 
     // Get bearer token from header
     const token = req.headers.authorization?.split(' ')[1];

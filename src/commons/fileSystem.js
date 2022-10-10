@@ -31,3 +31,8 @@ export const createDirectory = (path) => {
     fs.mkdirSync(path);
   }
 };
+
+// Delete a file
+export const deleteFile = (path) => {
+  fs.unlinkSync(path);
+}

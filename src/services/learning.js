@@ -2,10 +2,7 @@
 import LearningModel from "../models/learning.js";
 
 export const getAllArticles = async () => {
-  const articles = await LearningModel.find(
-    {},
-    "title subtitle content author category tags preview"
-  );
+  const articles = await LearningModel.find({}, "title subtitle content author category tags preview");
 
   return articles.map((article) => {
     article.content = article.content.substring(0, 100);
@@ -48,10 +45,7 @@ export const getAllCategories = async () => {
 };
 
 export const getAllArticlesOfCategory = async (category) => {
-  const articles = await LearningModel.find(
-    { category },
-    "title subtitle content author category tags preview"
-  );
+  const articles = await LearningModel.find({ category }, "title subtitle content author category tags preview");
 
   return articles.map((article) => {
     article.content = article.content.substring(0, 100);

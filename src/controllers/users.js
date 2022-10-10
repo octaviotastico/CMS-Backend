@@ -15,11 +15,11 @@ export const getMyData = async (req, res) => {
   const response = await usersDelegate.getUsersByUsername(username);
   res.status(200).json(response);
   return response;
-}
+};
 
 export const editMyData = async (req, res) => {
-  const { username } = req.decodedToken;
   const { path: profilePicture } = req.file || {};
+  const { username } = req.decodedToken;
   const {
     // Personal Data
     firstName,
@@ -69,12 +69,12 @@ export const editMyData = async (req, res) => {
     papers,
     awards,
     projects,
-    interests
+    interests,
   });
 
   res.status(201).json(response);
   return response;
-}
+};
 
 export const getUsersByID = async (req, res) => {
   const { id } = req.params;

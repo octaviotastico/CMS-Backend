@@ -38,8 +38,7 @@ export const getAllCategories = async () => {
 
 export const getAllArticlesOfCategory = async (category) => {
   checkParams(category);
-  if (typeof category !== "string")
-    throw new Error("category must be a string");
+  if (typeof category !== "string") throw new Error("category must be a string");
   return await learningService.getAllArticlesOfCategory(category);
 };
 

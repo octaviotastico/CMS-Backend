@@ -101,7 +101,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to database");
+    console.info("Connected to database");
   });
 
 mongoose.configDtnAndStart({
@@ -118,6 +118,7 @@ mongoose.configDtnAndStart({
 
 createDirectory("./storage/");
 createDirectory("./storage/learning");
+createDirectory("./storage/users");
 
 /// ------------------------- ///
 /// --- HTTP Server setup --- ///
@@ -139,7 +140,7 @@ app.use("/auth", authRoute);
 
 // Listen for HTTP requests on port 2424
 app.listen(HTTP_PORT, () => {
-  console.log(`HTTP Server up and runnig on port ${HTTP_PORT}!! 🕺🕺🕺`);
+  console.info(`HTTP Server up and runnig on port ${HTTP_PORT}!! 🕺🕺🕺`);
 });
 
 /// --------------------------- ///
@@ -152,23 +153,23 @@ const io = new Server(server);
 
 // (Move to a separate file).
 io.on("connection", (socket) => {
-  console.log("Socket connection made!");
+  console.info("Socket connection made!");
 
   // Wellcome message.
   socket.emit("message", "Hello from the CMS backend!");
 
   // Listen for messages.
   socket.on("message", (data) => {
-    console.log("Received message:", data);
+    console.info("Received message:", data);
   });
 
   // Goodbye message.
   socket.on("disconnect", () => {
-    console.log("Socket disconnected!");
+    console.info("Socket disconnected!");
   });
 });
 
 // Listen for socket requests on port 2525
 server.listen(TCP_PORT, () => {
-  console.log(`Socket Server listening on port ${TCP_PORT}!! 🕺🕺🕺`);
+  console.info(`Socket Server listening on port ${TCP_PORT}!! 🕺🕺🕺`);
 });

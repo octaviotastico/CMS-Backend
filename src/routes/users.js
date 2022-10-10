@@ -20,7 +20,7 @@ router.get("/me", (req, res) => {
 });
 
 // Patch my data
-router.patch("/me", usersFileStorage.single("profilePicture"), (req, res) => {
+router.post("/me", usersFileStorage.single("profilePicture"), (req, res) => {
   handleRequest(req, res, usersController.editMyData);
 });
 
