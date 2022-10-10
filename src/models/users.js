@@ -9,7 +9,7 @@ const UsersSchema = new Schema({
   // Basic info
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  photo: { type: String },
+  profilePicture: { type: String },
 
   // Personal Data
   firstName: { type: String, required: true },

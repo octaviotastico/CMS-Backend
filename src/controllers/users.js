@@ -10,9 +10,82 @@ export const getAllUsers = async (req, res) => {
   return response;
 };
 
+export const getMyData = async (req, res) => {
+  const { username } = req.decodedToken;
+  const response = await usersDelegate.getUsersByUsername(username);
+  res.status(200).json(response);
+  return response;
+}
+
+export const editMyData = async (req, res) => {
+  const { username } = req.decodedToken;
+  const { path: profilePicture } = req.file || {};
+  const {
+    // Personal Data
+    firstName,
+    lastName,
+    email,
+    phone,
+
+    // Contact Data
+    twitter,
+    facebook,
+    github,
+    gitlab,
+    bitbucket,
+    linkedin,
+    website,
+
+    // Extra Data
+    description,
+    skills,
+    experience,
+    education,
+    languages,
+    papers,
+    awards,
+    projects,
+    interests,
+  } = req.body;
+
+  const response = await usersDelegate.editMyData(username, {
+    profilePicture,
+    firstName,
+    lastName,
+    email,
+    phone,
+    twitter,
+    facebook,
+    github,
+    gitlab,
+    bitbucket,
+    linkedin,
+    website,
+    description,
+    skills,
+    experience,
+    education,
+    languages,
+    papers,
+    awards,
+    projects,
+    interests
+  });
+
+  res.status(201).json(response);
+  return response;
+}
+
 export const getUsersByID = async (req, res) => {
   const { id } = req.params;
   const response = await usersDelegate.getUsersByID(id);
+  res.status(200).json(response);
+  return response;
+};
+
+export const getUsersByUsername = async (req, res) => {
+  const { username } = req.params;
+  const response = await usersDelegate.getUsersByUsername(username);
   res.status(200).json(response);
   return response;
 };
@@ -22,7 +95,7 @@ export const postUser = async (req, res) => {
     // Basic Info
     username,
     password,
-    photo,
+    profilePicture,
 
     // Personal Data
     firstName,
@@ -57,7 +130,7 @@ export const postUser = async (req, res) => {
   const response = await usersDelegate.postUser({
     username,
     password: passwordHash,
-    photo,
+    profilePicture,
     firstName,
     lastName,
     email,
@@ -89,7 +162,7 @@ export const editUser = async (req, res) => {
   const {
     username,
     password,
-    photo,
+    profilePicture,
     firstName,
     lastName,
     email,
@@ -115,7 +188,7 @@ export const editUser = async (req, res) => {
   const response = await usersDelegate.editUser(id, {
     username,
     password,
-    photo,
+    profilePicture,
     firstName,
     lastName,
     email,
@@ -167,7 +240,10 @@ export const getAllUsersWithSkill = async (req, res) => {
 
 export default {
   getAllUsers,
+  getMyData,
+  editMyData,
   getUsersByID,
+  getUsersByUsername,
   postUser,
   editUser,
   deleteUsers,

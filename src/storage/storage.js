@@ -12,9 +12,18 @@ const allowedFileExtensions = [
 const limits = { fileSize: 1024 * 1024 * 10 }; // 10MB file size limit
 
 // Disk Storage
-const storage = multer.diskStorage({
+const learningStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "storage/learning/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+  },
+});
+
+const userStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "storage/users/");
   },
   filename: function (req, file, cb) {
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
@@ -30,4 +39,5 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-export const fileStorage = multer({ storage, fileFilter, limits });
+export const learningFileStorage = multer({ learningStorage, fileFilter, limits });
+export const usersFileStorage = multer({ userStorage, fileFilter, limits });

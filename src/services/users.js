@@ -9,16 +9,28 @@ export const getUsersByID = async (id) => {
   return await UsersModel.findById(id);
 };
 
-export const savePersonInDatabase = async (user) => {
+export const getUsersByUsername = async (username) => {
+  return await UsersModel.findOne({ username: username });
+};
+
+export const saveNewUser = async (user) => {
   return await new UsersModel(user).save();
 };
 
-export const updateInDatabase = async (id, user) => {
+export const updateUserByID = async (id, user) => {
   return await UsersModel.findByIdAndUpdate(id, user, { new: false });
 };
 
-export const deleteFromDatabase = async (id) => {
+export const updateUserByUsername = async (username, newData) => {
+  return await UsersModel.findOneAndUpdate({ username }, newData, { new: false });
+};
+
+export const deleteUserByID = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
+};
+
+export const deleteUserByUsername = async (username) => {
+  return await UsersModel.findByIdAndRemove({ username });
 };
 
 export const getAllSkills = async () => {
@@ -34,9 +46,12 @@ export const getAllUsersWithSkill = async (skill) => {
 export default {
   getAllUsers,
   getUsersByID,
-  savePersonInDatabase,
-  updateInDatabase,
-  deleteFromDatabase,
+  getUsersByUsername,
+  saveNewUser,
+  updateUserByID,
+  updateUserByUsername,
+  deleteUserByID,
+  deleteUserByUsername,
   getAllSkills,
   getAllUsersWithSkill,
 };

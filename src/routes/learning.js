@@ -4,7 +4,7 @@ import express from "express";
 // Local Imports
 import { handleRequest } from "../commons/routeController.js";
 import learningController from "../controllers/learning.js";
-import { fileStorage } from "../storage/storage.js";
+import { learningFileStorage } from "../storage/storage.js";
 
 // Router
 const router = express.Router();
@@ -35,12 +35,12 @@ router.get("/article/:id", (req, res) => {
 });
 
 // Post a new learning article
-router.post("/articles", fileStorage.single("preview"), (req, res) => {
+router.post("/articles", learningFileStorage.single("preview"), (req, res) => {
   handleRequest(req, res, learningController.postArticle);
 });
 
 // Edit/Update an existing article
-router.patch("/article/:id", fileStorage.single("preview"), (req, res) => {
+router.patch("/article/:id", learningFileStorage.single("preview"), (req, res) => {
   handleRequest(req, res, learningController.editArticle);
 });
 
