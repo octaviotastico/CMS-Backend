@@ -8,7 +8,7 @@ const { Schema } = mongoose;
 const UsersSchema = new Schema({
   // Basic info
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
   profilePicture: { type: String },
 
   // Personal Data
