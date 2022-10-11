@@ -17,6 +17,7 @@ export const handleRequest = async (req, res, methodController, next) => {
     const decodedToken = jwt.decode(token);
 
     if (!decodedToken || !decodedToken.username) {
+      console.log({ decodedToken });
       throw new Error("Invalid token");
     }
 

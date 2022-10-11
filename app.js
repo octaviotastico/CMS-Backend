@@ -12,6 +12,7 @@ import calendarRoute from "./src/routes/calendar.js";
 import learningRoute from "./src/routes/learning.js";
 import usersRoute from "./src/routes/users.js";
 import authRoute from "./src/routes/auth.js";
+import searchRoute from "./src/routes/searchbar.js";
 
 /// ------------------ ///
 /// --- Parameters --- ///
@@ -137,6 +138,7 @@ app.use("/calendar", calendarRoute);
 app.use("/learning", learningRoute);
 app.use("/users", usersRoute);
 app.use("/auth", authRoute);
+app.use("/search", searchRoute);
 
 // Listen for HTTP requests on port 2424
 app.listen(HTTP_PORT, () => {
