@@ -14,7 +14,7 @@ export const isUsernameAvailable = async (username) => {
 
 export const login = async (username, password) => {
   // Get user from database
-  const user = await UsersModel.findOne({ username });
+  const user = await UsersModel.findOne({ username }).select('+password');
   const { firstName, lastName, email } = user;
 
   // Check if user exists

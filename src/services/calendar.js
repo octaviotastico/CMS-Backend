@@ -31,8 +31,6 @@ export const getAllUpcomingEvents = async ({ page, amount }) => {
   // Returns all upcoming events with pagination.
   const events = await CalendarModel.paginate({ startDate: { $gt: new Date() } }, { page: page, limit: amount });
 
-  console.log({ events });
-
   return await joinEventsWithUsers(events.docs);
 };
 
