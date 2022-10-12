@@ -4,12 +4,10 @@ import { getUsersByUsername } from "./users.js";
 
 const joinEventsWithUsers = async (events) => {
   return Promise.all(
-    events.map(async (event) => {
-      return ({
-        ...(event.toObject()),
-        expositor: await getUsersByUsername(event.expositor),
-      })
-    })
+    events.map(async (event) => ({
+      ...event.toObject(),
+      expositor: await getUsersByUsername(event.expositor),
+    }))
   );
 };
 
@@ -31,10 +29,7 @@ export const getAllCurrentEvents = async ({ page, amount }) => {
 
 export const getAllUpcomingEvents = async ({ page, amount }) => {
   // Returns all upcoming events with pagination.
-  const events = await CalendarModel.paginate(
-    { startDate: { $gt: new Date() } },
-    { page: page, limit: amount }
-  );
+  const events = await CalendarModel.paginate({ startDate: { $gt: new Date() } }, { page: page, limit: amount });
 
   console.log({ events });
 
@@ -43,10 +38,7 @@ export const getAllUpcomingEvents = async ({ page, amount }) => {
 
 export const getAllPastEvents = async ({ page, amount }) => {
   // Returns all past events with pagination.
-  const events = await CalendarModel.paginate(
-    { endDate: { $lt: new Date() } },
-    { page: page, limit: amount }
-  );
+  const events = await CalendarModel.paginate({ endDate: { $lt: new Date() } }, { page: page, limit: amount });
 
   return await joinEventsWithUsers(events.docs);
 };
