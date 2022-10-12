@@ -24,7 +24,8 @@ export const getAllEvents = async (req, res) => {
  * Returns all the current events.
  */
 export const getAllCurrentEvents = async (req, res) => {
-  const response = await calendarDelegate.getAllCurrentEvents();
+  const { page = 0, amount = 100 } = req.query;
+  const response = await calendarDelegate.getAllCurrentEvents({ page, amount });
   res.status(201).json(response);
   return response;
 };
@@ -34,10 +35,7 @@ export const getAllCurrentEvents = async (req, res) => {
  */
 export const getAllUpcomingEvents = async (req, res) => {
   const { page = 0, amount = 100 } = req.query;
-  const response = await calendarDelegate.getAllUpcomingEvents({
-    page,
-    amount,
-  });
+  const response = await calendarDelegate.getAllUpcomingEvents({ page, amount });
   res.status(201).json(response);
   return response;
 };

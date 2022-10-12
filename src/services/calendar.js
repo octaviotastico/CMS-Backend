@@ -1,73 +1,54 @@
 // Local Imports
 import CalendarModel from "../models/calendar.js";
+import { getUsersByUsername } from "./users.js";
 
-export const getAllEvents = async ({ page, amount }) => {
-  if (page && amount) {
-    // Returns events with pagination.
-    return await CalendarModel.paginate(
-      {},
-      {
-        page: page,
-        limit: amount,
-      }
-    );
-  }
-  // Returns all events.
-  return await CalendarModel.find();
+const joinEventsWithUsers = async (events) => {
+  return Promise.all(
+    events.map(async (event) => {
+      return ({
+        ...(event.toObject()),
+        expositor: await getUsersByUsername(event.expositor),
+      })
+    })
+  );
 };
 
-export const getAllCurrentEvents = async () => {
-  // Returns all current events.
-  return await CalendarModel.find({
-    startDate: { $lte: new Date() },
-    endDate: { $gte: new Date() },
-  });
+export const getAllEvents = async ({ page, amount }) => {
+  // Returns events with pagination.
+  const events = await CalendarModel.paginate({}, { page: page, limit: amount });
+  return await joinEventsWithUsers(events.docs);
+};
+
+export const getAllCurrentEvents = async ({ page, amount }) => {
+  // Returns all current events with pagination.
+  const events = await CalendarModel.paginate(
+    { startDate: { $lte: new Date() }, endDate: { $gte: new Date() } },
+    { page: page, limit: amount }
+  );
+
+  return await joinEventsWithUsers(events.docs);
 };
 
 export const getAllUpcomingEvents = async ({ page, amount }) => {
-  if (page && amount) {
-    // Returns events with pagination.
-    return await CalendarModel.paginate(
-      {
-        startDate: {
-          $gt: new Date(),
-        },
-      },
-      {
-        page: page,
-        limit: amount,
-      }
-    );
-  }
-  // Returns all upcoming events.
-  return await CalendarModel.find({
-    startDate: {
-      $gt: new Date(),
-    },
-  });
+  // Returns all upcoming events with pagination.
+  const events = await CalendarModel.paginate(
+    { startDate: { $gt: new Date() } },
+    { page: page, limit: amount }
+  );
+
+  console.log({ events });
+
+  return await joinEventsWithUsers(events.docs);
 };
 
 export const getAllPastEvents = async ({ page, amount }) => {
-  if (page && amount) {
-    // Returns events with pagination.
-    return await CalendarModel.paginate(
-      {
-        endDate: {
-          $lt: new Date(),
-        },
-      },
-      {
-        page: page,
-        limit: amount,
-      }
-    );
-  }
-  // Returns all past events.
-  return await CalendarModel.find({
-    endDate: {
-      $lt: new Date(),
-    },
-  });
+  // Returns all past events with pagination.
+  const events = await CalendarModel.paginate(
+    { endDate: { $lt: new Date() } },
+    { page: page, limit: amount }
+  );
+
+  return await joinEventsWithUsers(events.docs);
 };
 
 export const getEventByID = async (id) => {

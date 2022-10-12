@@ -6,8 +6,8 @@ export const getAllEvents = async ({ page, amount }) => {
   return await calendarService.getAllEvents({ page, amount });
 };
 
-export const getAllCurrentEvents = async () => {
-  return await calendarService.getAllCurrentEvents();
+export const getAllCurrentEvents = async ({ page, amount }) => {
+  return await calendarService.getAllCurrentEvents({ page, amount });
 };
 
 export const getAllUpcomingEvents = async ({ page, amount }) => {
