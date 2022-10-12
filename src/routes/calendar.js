@@ -4,7 +4,7 @@ import express from "express";
 // Local Imports
 import { handleRequest } from "../commons/routeController.js";
 import calendarController from "../controllers/calendar.js";
-import { learningFileStorage } from "../storage/storage.js";
+import { calendarFileStorage } from "../storage/storage.js";
 
 // Routing
 const router = express.Router();
@@ -35,12 +35,12 @@ router.get("/event/:id", (req, res) => {
 });
 
 // Post a new event.
-router.post("/events", learningFileStorage.single("preview"), (req, res) => {
+router.post("/events", calendarFileStorage.single("preview"), (req, res) => {
   handleRequest(req, res, calendarController.postEvent);
 });
 
 // Edit/Update an existing event.
-router.patch("/event/:id", learningFileStorage.single("preview"), (req, res) => {
+router.patch("/event/:id", calendarFileStorage.single("preview"), (req, res) => {
   handleRequest(req, res, calendarController.editEvent);
 });
 

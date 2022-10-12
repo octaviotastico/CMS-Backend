@@ -6,10 +6,16 @@ const allowedFileExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gi
 const limits = { fileSize: 1024 * 1024 * 10 }; // 10MB file size limit
 
 // Disk Storage
-const learningStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "storage/learning/");
+const calendarStorage = multer.diskStorage({
+  destination: "storage/events/",
+  filename: (req, file, cb) => {
+    const filename = new Date().toISOString().replace(/:/g, "-") + file.originalname;
+    cb(null, filename);
   },
+});
+
+const learningStorage = multer.diskStorage({
+  destination: "storage/learning/",
   filename: function (req, file, cb) {
     const filename = new Date().toISOString().replace(/:/g, "-") + file.originalname;
     cb(null, filename);
@@ -33,5 +39,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+export const calendarFileStorage = multer({ storage: calendarStorage, fileFilter, limits });
 export const learningFileStorage = multer({ storage: learningStorage, fileFilter, limits });
 export const usersFileStorage = multer({ storage: userStorage, fileFilter, limits });

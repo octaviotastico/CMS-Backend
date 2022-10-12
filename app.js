@@ -118,6 +118,7 @@ mongoose.configDtnAndStart({
 /// --------------------- ///
 
 createDirectory("./storage/");
+createDirectory("./storage/events");
 createDirectory("./storage/learning");
 createDirectory("./storage/users");
 
@@ -128,7 +129,7 @@ createDirectory("./storage/users");
 // App setup
 const app = express();
 
-app.use("/storage", express.static("storage")); // Here
+app.use("/storage", express.static("storage"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
