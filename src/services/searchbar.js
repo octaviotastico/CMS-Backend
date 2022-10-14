@@ -15,13 +15,17 @@ export const search = async (searchStr) => {
     .select("title subtitle preview")
     .limit(5);
   const calendar = await CalendarModel.find({ title: { $regex: regex } })
-    .select("title subtitle preview")
+    .select("title description preview")
     .limit(5);
 
   console.log({ users, articles, calendar });
   return {
     articles,
-    calendar,
+    calendar: calendar.map((elem) => ({
+      title: elem.title,
+      subtitle: elem.description,
+      preview: elem.preview,
+    })),
     users: users.map((elem) => ({
       title: `${elem.firstName} ${elem.lastName}`,
       subtitle: elem.username,
