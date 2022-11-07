@@ -17,7 +17,7 @@ const generateAccessToken = (user) => {
   const { username, firstName, lastName, email } = user;
 
   // JWT Keys
-  const jwtPrivateKey = path.resolve("") + "/keys/private_key.pem";
+  const jwtPrivateKey = path.resolve("") + "/keys/private_key";
 
   // Data for JWT
   let cert;
