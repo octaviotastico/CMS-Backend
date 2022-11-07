@@ -10,9 +10,9 @@ What do I need to run this project?
 - [mongodb](https://docs.mongodb.com/guides/server/install/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable) (if you want to)
 
-## Running the project
+## Installing thr dependencies
 
-To install the dependencies:
+To install the dependencies, you simply need to run
 
 ```
 yarn
@@ -22,7 +22,20 @@ or
 npm i
 ```
 
-After dependencies are installed:
+After installing the dependencies, you need to create an SSH key in a "keys" directory in the root directory of the project.
+To do that, you need to run:
+
+```
+ssh-keygen
+```
+
+And name the new file as `private_key`.
+
+This command should only create two new files: `private_key` and `private_key.pub`.
+
+## Running the project in "local" mode
+
+After dependencies are installed, to start the project you just need to run
 
 ```
 yarn start
@@ -32,25 +45,27 @@ or
 npm start
 ```
 
-And the project should start, but only for "local" mode.
+And the project should work only for "local" mode.
 
-It means that any DTN feature will not work.
+It means that none of the DTN features will work.
 
-## How to test the DTN features?
+## Running the project with the DTN Features
 
-The first step is to clone [ud3tn repository](https://gitlab.com/d3tn/ud3tn).
+The first step is to clone [μD3TN repository](https://gitlab.com/d3tn/ud3tn).
 
-Don't forget to clone with recursive submodules, if you forgot, just run: `git submodule update --init --recursive`.
+Don't forget to clone with recursive submodules (`--recurse-submodules -j8`).
 
-After that, you will need to run **ud3tn** so that the database can use its aap interface to forward messages to another instance.
+If you forgot, don't worry, just run: `git submodule update --init --recursive`.
 
-To run **ud3tn** the only thing you need to do is:
+After that, you will need to run **μD3TN** so that the database can use its aap interface to forward messages to another instance.
+
+To run **μD3TN** the only thing you need to do is:
 
 ```
 make clean && make posix && make run-posix
 ```
 
-After running **ud3tn**, you need to run the amount of instances you want to synchronize.
+After running **μD3TN**, you need to run the amount of instances you want to synchronize.
 
 In this case we will only create two instances, an instance A and an instance B, so we can run two instances of the CMS-Backend.
 

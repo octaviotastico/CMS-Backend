@@ -25,7 +25,7 @@ export const login = async (username, password) => {
   if (!isPasswordValid) return false;
 
   // JWT Keys
-  const jwtPrivateKey = path.resolve("") + "/keys/private_key.pem";
+  const jwtPrivateKey = path.resolve("") + "/keys/private_key";
 
   // Data for JWT
   let cert;
