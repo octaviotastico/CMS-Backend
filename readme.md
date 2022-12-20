@@ -73,14 +73,14 @@ In this case we will only create two instances, an instance A and an instance B,
 You can create two nodes like this on two different terminals:
 
 ```
-build/posix/ud3tn --eid dtn://a.dtn \
+build/posix/ud3tn --eid dtn://a.dtn/ \
                   --bp-version 7 \
                   --aap-port 4242 \
                   --cla "mtcp:*,4224"
 ```
 
 ```
-build/posix/ud3tn --eid dtn://b.dtn \
+build/posix/ud3tn --eid dtn://b.dtn/ \
                   --bp-version 7 \
                   --aap-port 4243 \
                   --cla "mtcp:*,4225"
@@ -91,15 +91,15 @@ After the instances are created, the only step left is to configure them.
 You can configure instance A and B like this:
 
 ```
-python tools/aap/aap_config.py --tcp localhost 4242 \
-                               --dest_eid dtn://a.dtn \
-                               --schedule 1 3600 100000 dtn://b.dtn mtcp:localhost:4225
+python3 tools/aap/aap_config.py --tcp localhost 4242 \
+                               --dest_eid dtn://a.dtn/ \
+                               --schedule 1 3600 100000 dtn://b.dtn/ mtcp:localhost:4225
 ```
 
 ```
-python tools/aap/aap_config.py --tcp localhost 4243 \
-                               --dest_eid dtn://b.dtn \
-                               --schedule 1 3600 100000 dtn://a.dtn mtcp:localhost:4224
+python3 tools/aap/aap_config.py --tcp localhost 4243 \
+                               --dest_eid dtn://b.dtn/ \
+                               --schedule 1 3600 100000 dtn://a.dtn/ mtcp:localhost:4224
 ```
 
 Finally, we need to run the two instances of the CMS, so we can communicate them using the DTN.
@@ -125,6 +125,31 @@ yarn start --http-port 2626 \
 ```
 
 ## Troubleshooting
+
+### .pem keys throws an error
+
+If you're using npm v16.15.X, try upgrading to v16.16.X
+
+To check your version, run
+
+```
+node -v
+```
+
+If you're using an older version, you'll need to upgrade.
+
+To install a newer version, try:
+
+```
+nvm install v16.16.0
+nvm use v16.16.0
+```
+
+To set this new version as default, you can run
+
+```
+nvm alias default v16.16.0
+```
 
 ### mongodb is installed but not running.
 
