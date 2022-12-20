@@ -12,17 +12,9 @@ export const isUsernameAvailable = async (username) => {
   return !user;
 };
 
-export const login = async (username, password) => {
-  // Get user from database
-  const user = await UsersModel.findOne({ username }).select('+password');
-  const { firstName, lastName, email } = user;
-
-  // Check if user exists
-  if (!user) return false;
-
-  // Check if password is correct
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) return false;
+const generateAccessToken = (user) => {
+  // Get user data
+  const { username, firstName, lastName, email } = user;
 
   // JWT Keys
   const jwtPrivateKey = path.resolve("") + "/keys/private_key";
@@ -37,7 +29,25 @@ export const login = async (username, password) => {
     cert = "null";
   }
 
-  return { user, token: jwt.sign(payload, cert, config) };
+  return jwt.sign(payload, cert, config);
+}
+
+export const login = async (username, password) => {
+  // Get user from database
+  const user = await UsersModel.findOne({ username }).select('+password');
+
+  // Check if user exists
+  if (!user) return false;
+
+  // Check if password is correct
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) return false;
+
+  return {
+    user,
+    token:
+    generateAccessToken(user)
+  };
 };
 
 const signup = async (username, password, firstName, lastName, email) => {
@@ -60,6 +70,12 @@ const signup = async (username, password, firstName, lastName, email) => {
     firstName: newUser.firstName,
     lastName: newUser.lastName,
     email: newUser.email,
+    token: generateAccessToken({
+      username,
+      firstName,
+      lastName,
+      email
+    }),
   };
 };
 

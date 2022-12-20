@@ -10,7 +10,7 @@ What do I need to run this project?
 - [mongodb](https://docs.mongodb.com/guides/server/install/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable) (if you want to)
 
-## Installing thr dependencies
+## Installing the dependencies
 
 To install the dependencies, you simply need to run
 
@@ -26,10 +26,11 @@ After installing the dependencies, you need to create an SSH key in a "keys" dir
 To do that, you need to run:
 
 ```
-ssh-keygen -t rsa -b 4096 -m PEM -f private_key
+ssh-keygen -t rsa -m PEM -f private_key
 ```
 
 With empty passphrase, and named as `private_key`.
+
 
 This command should only create two new files: `private_key` and `private_key.pub`.
 
