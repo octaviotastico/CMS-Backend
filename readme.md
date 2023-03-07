@@ -128,7 +128,7 @@ yarn start --http-port 2626 \
 
 ### .pem keys throws an error
 
-If you're using npm v16.15.X, try upgrading to v16.16.X
+If you're using node v16.15.X, try upgrading to v16.16.X
 
 To check your version, run
 
@@ -175,4 +175,12 @@ If you also want to make it run every time your computer starts, do:
 
 ```
 sudo systemctl enable mongodb
+```
+
+### if you're using WSL
+
+You probably don't have `systemctl` available, so you can try using:
+
+```
+sudo service mongodb start
 ```
