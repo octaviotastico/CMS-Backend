@@ -15,15 +15,14 @@ export const getUsersByUsername = async (username) => {
 };
 
 export const saveNewUser = async (user) => {
-  return await new UsersModel(user).save();
+  return await UsersModel.dtCreate(user);
 };
 
 export const updateUserByID = async (id, user) => {
-  return await UsersModel.findByIdAndUpdate(id, user, { new: false });
+  return await UsersModel.dtFindByIdAndUpdate(id, user, { new: false });
 };
 
 export const updateUserByUsername = async (username, newData) => {
-
   if (newData.profilePicture) {
     const user = await UsersModel.findOne({ username });
     const oldProfilePicture = user.profilePicture;
@@ -33,15 +32,15 @@ export const updateUserByUsername = async (username, newData) => {
     }
   }
 
-  return await UsersModel.findOneAndUpdate({ username }, newData, { new: false });
+  return await UsersModel.dtFindOneAndUpdate({ username }, newData, { new: false });
 };
 
 export const deleteUserByID = async (id) => {
-  return await UsersModel.findByIdAndRemove(id);
+  return await UsersModel.dtFindByIdAndRemove(id);
 };
 
 export const deleteUserByUsername = async (username) => {
-  return await UsersModel.findByIdAndRemove({ username });
+  return await UsersModel.dtFindByIdAndRemove({ username });
 };
 
 export const getAllSkills = async () => {
